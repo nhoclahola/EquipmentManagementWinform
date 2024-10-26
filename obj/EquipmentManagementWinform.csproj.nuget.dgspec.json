@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj": {}
+  },
+  "projects": {
+    "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj",
+        "projectName": "EquipmentManagementWinform",
+        "projectPath": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj",
+        "packagesPath": "C:\\Users\\nhoclahola\\.nuget\\packages\\",
+        "outputPath": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\nhoclahola\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "FontAwesome.Sharp": {
+              "target": "Package",
+              "version": "[6.6.0, )"
+            },
+            "Guna.UI2.WinForms": {
+              "target": "Package",
+              "version": "[2.0.4.6, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

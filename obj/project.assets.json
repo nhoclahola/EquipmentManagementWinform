@@ -1,0 +1,376 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.Windows.Forms",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        }
+      },
+      "Guna.UI2.WinForms/2.0.4.6": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Management",
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net48/Guna.UI2.dll": {}
+        },
+        "runtime": {
+          "lib/net48/Guna.UI2.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.Windows.Forms",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        }
+      },
+      "Guna.UI2.WinForms/2.0.4.6": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Management",
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net48/Guna.UI2.dll": {}
+        },
+        "runtime": {
+          "lib/net48/Guna.UI2.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.Windows.Forms",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        }
+      },
+      "Guna.UI2.WinForms/2.0.4.6": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Management",
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net48/Guna.UI2.dll": {}
+        },
+        "runtime": {
+          "lib/net48/Guna.UI2.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.Windows.Forms",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        }
+      },
+      "Guna.UI2.WinForms/2.0.4.6": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Management",
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net48/Guna.UI2.dll": {}
+        },
+        "runtime": {
+          "lib/net48/Guna.UI2.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.Windows.Forms",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net48/FontAwesome.Sharp.dll": {}
+        }
+      },
+      "Guna.UI2.WinForms/2.0.4.6": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Design",
+          "System.Management",
+          "System.Web"
+        ],
+        "compile": {
+          "lib/net48/Guna.UI2.dll": {}
+        },
+        "runtime": {
+          "lib/net48/Guna.UI2.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FontAwesome.Sharp/6.6.0": {
+      "sha512": "bJCb2x73UC1nD9+9iMLaUy6Ujf9Pf+buL6FHwVnaoDYT4CQNLazz59hO5gQ0+SMSW0G+ZXmjjShOYr3Jn2UZiw==",
+      "type": "package",
+      "path": "fontawesome.sharp/6.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fontawesome.sharp.6.6.0.nupkg.sha512",
+        "fontawesome.sharp.nuspec",
+        "lib/net472/FontAwesome.Sharp.dll",
+        "lib/net48/FontAwesome.Sharp.dll",
+        "lib/net6.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/net7.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/net8.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/netcoreapp3.1/FontAwesome.Sharp.dll"
+      ]
+    },
+    "Guna.UI2.WinForms/2.0.4.6": {
+      "sha512": "NYzSJp7e47Cz3NgGCHvzadash8ycmxxUnpLg4Rr/MSYG9WDw0HOoTI4SkbDW+HbACrf6tsWYCuzWkgvjuM/O6w==",
+      "type": "package",
+      "path": "guna.ui2.winforms/2.0.4.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "guna.ui2.winforms.2.0.4.6.nupkg.sha512",
+        "guna.ui2.winforms.nuspec",
+        "icon.png",
+        "lib/net40/Guna.UI2.dll",
+        "lib/net45/Guna.UI2.dll",
+        "lib/net461/Guna.UI2.dll",
+        "lib/net472/Guna.UI2.dll",
+        "lib/net48/Guna.UI2.dll",
+        "lib/net6.0-windows7.0/Guna.UI2.dll",
+        "lib/net7.0-windows7.0/Guna.UI2.dll",
+        "lib/netcoreapp3.1/Guna.UI2.dll"
+      ]
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "FontAwesome.Sharp >= 6.6.0",
+      "Guna.UI2.WinForms >= 2.0.4.6",
+      "Newtonsoft.Json >= 13.0.3"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\nhoclahola\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj",
+      "projectName": "EquipmentManagementWinform",
+      "projectPath": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\EquipmentManagementWinform.csproj",
+      "packagesPath": "C:\\Users\\nhoclahola\\.nuget\\packages\\",
+      "outputPath": "D:\\Workspace\\Winform\\EquipmentManagementWinform\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\nhoclahola\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "FontAwesome.Sharp": {
+            "target": "Package",
+            "version": "[6.6.0, )"
+          },
+          "Guna.UI2.WinForms": {
+            "target": "Package",
+            "version": "[2.0.4.6, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}
