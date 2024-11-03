@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EquipmentManagementWinform.Forms.EquipmentManagement;
 
 namespace EquipmentManagementWinform.Forms
 {
@@ -28,18 +29,66 @@ namespace EquipmentManagementWinform.Forms
             public string Password { get; set; }
         }
 
+        private long currentPageNumber = 1;
+
         public UserManagement()
         {
             InitializeComponent();
-            LoadDataIntoGridView();
+
+            // Tùy chỉnh DataGridView
+            dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewUsers.DefaultCellStyle.BackColor = Color.White;
+            dataGridViewUsers.DefaultCellStyle.ForeColor = Color.Black;
+            dataGridViewUsers.DefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Regular);
+            dataGridViewUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Tùy chỉnh tiêu đề cột
+            dataGridViewUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+            dataGridViewUsers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridViewUsers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dataGridViewUsers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Căn chỉnh dữ liệu
+            dataGridViewUsers.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            // Tùy chỉnh đường viền ô
+            dataGridViewUsers.GridColor = Color.Black;
+            dataGridViewUsers.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dataGridViewUsers.RowHeadersVisible = false;  // Ẩn tiêu đề hàng
+
+            // Cài đặt tự động điều chỉnh kích thước cột
+            dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Đăng ký sự kiện
+            dataGridViewUsers.CellContentClick += DataGridViewUsers_CellClickDeleteUser;
+            dataGridViewUsers.CellClick += DataGridViewUsers_CellClick;
+
+            LoadDataIntoGridView(currentPageNumber);    // Khởi đầu là 1
         }
 
-        private async Task<List<User>> FetchUsersAsync()
+        public async Task<long> FetchUsersCountAsync()
         {
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = "http://localhost:8080/admin/users?page=0";
+                string apiUrl = "http://localhost:8080/admin/users/count";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string countString = await response.Content.ReadAsStringAsync();
+                    return long.Parse(countString);
+                }
+
+                return 0;
+            }
+        }
+
+        private async Task<List<User>> FetchUsersAsync(long pageNumber)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/users?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -53,42 +102,45 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
-        public async void LoadDataIntoGridView()
+        private async void deleteUser(long userId)
         {
-            // Huỷ đăng ký sự kiện cũ (nếu có)
-            dataGridViewUsers.CellClick -= DataGridViewUsers_CellClick;
-            List<User> users = await FetchUsersAsync();
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/users/{userId}";
+                HttpResponseMessage response = await client.DeleteAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    long userCount = await FetchUsersCountAsync();
+                    long totalPageNumber = (userCount - 1) / 10 + 1;
+                    LoadDataIntoGridView(currentPageNumber);
+                    labelPageNumber.Text = currentPageNumber.ToString();
+                    labelTotalPageNumber.Text = totalPageNumber.ToString();
+                    MessageBox.Show($"Đã xoá người dùng có ID: {userId}");
+                }
+                else
+                    MessageBox.Show($"Có lỗi xảy ra khi xoá người dùng với ID: {userId}");
+            }
+        }
+
+        public async void LoadDataIntoGridView(long pageNumber)
+        {
+            //Check page
+            long userCount = await FetchUsersCountAsync();
+            long totalPageNumber = (userCount - 1) / 10 + 1;
+            labelTotalPageNumber.Text = totalPageNumber.ToString();
+
+            // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+            dataGridViewUsers.Columns.Clear();
+            dataGridViewUsers.DataSource = null;
+            List<User> users = await FetchUsersAsync(pageNumber);
             if (users != null)
             {
                 // Đặt dữ liệu vào DataGridView
                 dataGridViewUsers.DataSource = users;
 
-                // Tùy chỉnh DataGridView
-                dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridViewUsers.DefaultCellStyle.BackColor = Color.White;
-                dataGridViewUsers.DefaultCellStyle.ForeColor = Color.Black;
-                dataGridViewUsers.DefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Regular);
-                dataGridViewUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-
-                // Tùy chỉnh tiêu đề cột
-                dataGridViewUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
-                dataGridViewUsers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dataGridViewUsers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
-                dataGridViewUsers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                // Căn chỉnh dữ liệu
-                dataGridViewUsers.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-                // Tùy chỉnh đường viền ô
-                dataGridViewUsers.GridColor = Color.Black;
-                dataGridViewUsers.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-                dataGridViewUsers.RowHeadersVisible = false;  // Ẩn tiêu đề hàng
-
-                // Cài đặt tự động điều chỉnh kích thước cột
-                dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 // Tạo cột "Hành động" với nút "Xoá"
-
                 DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
                 deleteColumn.Name = "Delete";
                 deleteColumn.HeaderText = "Xoá";
@@ -128,25 +180,8 @@ namespace EquipmentManagementWinform.Forms
                 // Không cho phép thay đổi kích thước hàng
                 dataGridViewUsers.AllowUserToResizeRows = false;
 
-                // Xử lý sự kiện nhấn nút "Sửa" và "Xoá"
-                dataGridViewUsers.CellContentClick += (s, e) =>
-                {
-                    if (e.ColumnIndex == dataGridViewUsers.Columns["Delete"].Index && e.RowIndex >= 0)
-                    {
-                        // Xoá user logic
-                        string userId = dataGridViewUsers.Rows[e.RowIndex].Cells["UserId"].Value.ToString();
-                        DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá user với ID: {userId}?", "Xoá người dùng", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            // Thực hiện gọi API hoặc logic xoá user
-                            MessageBox.Show($"Xoá thông tin user với ID: {userId}");
-                        }
-                    }
-                };
                 dateTimePickerDob.Format = DateTimePickerFormat.Custom;
                 dateTimePickerDob.CustomFormat = " ";
-                // Sự kiện khi nhấn vào một dòng trong DataGridView
-                dataGridViewUsers.CellClick += DataGridViewUsers_CellClick;
             }
             else
             {
@@ -165,7 +200,12 @@ namespace EquipmentManagementWinform.Forms
                 // Đặt giá trị của các control
                 textBoxUsername.Text = selectedUser.Username;
                 textBoxFullName.Text = selectedUser.FullName;
-                comboBoxGender.Text = selectedUser.Gender == true ? "Nam" : "Nữ";
+                if (selectedUser.Gender == null)
+                    comboBoxGender.Text = "Khác";
+                else if (selectedUser.Gender == true)
+                    comboBoxGender.Text = "Nam";
+                else if (selectedUser.Gender == false)
+                    comboBoxGender.Text = "Nữ";
                 textBoxPhoneNumber.Text = selectedUser.PhoneNumber;
                 comboBoxRole.Text = selectedUser.Role == "USER" ? "Trợ giảng" : "Quản lý";
                 textBoxPassword.Text = selectedUser.Password;
@@ -182,6 +222,20 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
+        // Phương thức xoá
+        private void DataGridViewUsers_CellClickDeleteUser(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewUsers.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                // Xoá user logic
+                string userId = dataGridViewUsers.Rows[e.RowIndex].Cells["UserId"].Value.ToString();
+                DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá user với ID: {userId}?", "Xoá người dùng", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                    // Thực hiện gọi API xoá user
+                    deleteUser(long.Parse(userId));
+            }
+        }    
+
         private void buttonRestore_Click(object sender, EventArgs e)
         {
 
@@ -191,6 +245,34 @@ namespace EquipmentManagementWinform.Forms
         {
             Form addUserForm = new AddUser(this);
             addUserForm.ShowDialog();
+        }
+
+        private async void iconButtonNextPage_Click(object sender, EventArgs e)
+        {
+            //Check page
+            long userCount = await FetchUsersCountAsync();
+            long totalPageNumber = (userCount - 1) / 10 + 1;
+            currentPageNumber = long.Parse(labelPageNumber.Text);
+            if (currentPageNumber < totalPageNumber)
+            {
+                currentPageNumber += 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
+                LoadDataIntoGridView(currentPageNumber);
+            }
+        }
+
+        private async void iconButtonPreviousPage_Click(object sender, EventArgs e)
+        {
+            //Check page
+            long userCount = await FetchUsersCountAsync();
+            long totalPageNumber = (userCount - 1) / 10 + 1;
+            currentPageNumber = long.Parse(labelPageNumber.Text);
+            if (currentPageNumber > 1)
+            {
+                currentPageNumber -= 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
+                LoadDataIntoGridView(currentPageNumber);
+            }
         }
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewUsers = new Guna.UI2.WinForms.Guna2DataGridView();
             this.labelUsername = new System.Windows.Forms.Label();
             this.labelFullName = new System.Windows.Forms.Label();
@@ -54,35 +54,37 @@
             this.iconButtonPreviousPage = new FontAwesome.Sharp.IconButton();
             this.iconButtonSearch = new FontAwesome.Sharp.IconButton();
             this.iconButtonAddUser = new FontAwesome.Sharp.IconButton();
+            this.labelSlash = new System.Windows.Forms.Label();
+            this.labelTotalPageNumber = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewUsers
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridViewUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dataGridViewUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewUsers.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewUsers.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewUsers.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridViewUsers.Location = new System.Drawing.Point(12, 93);
             this.dataGridViewUsers.Name = "dataGridViewUsers";
             this.dataGridViewUsers.RowHeadersVisible = false;
-            this.dataGridViewUsers.Size = new System.Drawing.Size(490, 261);
+            this.dataGridViewUsers.Size = new System.Drawing.Size(490, 247);
             this.dataGridViewUsers.TabIndex = 1;
             this.dataGridViewUsers.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridViewUsers.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -184,7 +186,8 @@
             this.comboBoxGender.FormattingEnabled = true;
             this.comboBoxGender.Items.AddRange(new object[] {
             "Nam",
-            "Nữ"});
+            "Nữ",
+            "Khác"});
             this.comboBoxGender.Location = new System.Drawing.Point(670, 141);
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(121, 23);
@@ -266,7 +269,7 @@
             this.labelPageNumber.AutoSize = true;
             this.labelPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPageNumber.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelPageNumber.Location = new System.Drawing.Point(230, 392);
+            this.labelPageNumber.Location = new System.Drawing.Point(210, 392);
             this.labelPageNumber.Name = "labelPageNumber";
             this.labelPageNumber.Size = new System.Drawing.Size(17, 17);
             this.labelPageNumber.TabIndex = 27;
@@ -306,6 +309,7 @@
             this.iconButtonNextPage.Size = new System.Drawing.Size(43, 37);
             this.iconButtonNextPage.TabIndex = 29;
             this.iconButtonNextPage.UseVisualStyleBackColor = true;
+            this.iconButtonNextPage.Click += new System.EventHandler(this.iconButtonNextPage_Click);
             // 
             // iconButtonPreviousPage
             // 
@@ -320,6 +324,7 @@
             this.iconButtonPreviousPage.Size = new System.Drawing.Size(43, 37);
             this.iconButtonPreviousPage.TabIndex = 28;
             this.iconButtonPreviousPage.UseVisualStyleBackColor = true;
+            this.iconButtonPreviousPage.Click += new System.EventHandler(this.iconButtonPreviousPage_Click);
             // 
             // iconButtonSearch
             // 
@@ -349,12 +354,36 @@
             this.iconButtonAddUser.UseVisualStyleBackColor = true;
             this.iconButtonAddUser.Click += new System.EventHandler(this.iconButtonAddUser_Click);
             // 
+            // labelSlash
+            // 
+            this.labelSlash.AutoSize = true;
+            this.labelSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSlash.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelSlash.Location = new System.Drawing.Point(233, 392);
+            this.labelSlash.Name = "labelSlash";
+            this.labelSlash.Size = new System.Drawing.Size(13, 17);
+            this.labelSlash.TabIndex = 32;
+            this.labelSlash.Text = "/";
+            // 
+            // labelTotalPageNumber
+            // 
+            this.labelTotalPageNumber.AutoSize = true;
+            this.labelTotalPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotalPageNumber.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTotalPageNumber.Location = new System.Drawing.Point(252, 392);
+            this.labelTotalPageNumber.Name = "labelTotalPageNumber";
+            this.labelTotalPageNumber.Size = new System.Drawing.Size(17, 17);
+            this.labelTotalPageNumber.TabIndex = 33;
+            this.labelTotalPageNumber.Text = "1";
+            // 
             // UserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1007, 450);
+            this.Controls.Add(this.labelTotalPageNumber);
+            this.Controls.Add(this.labelSlash);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonRestore);
             this.Controls.Add(this.iconButtonNextPage);
@@ -405,10 +434,12 @@
         private System.Windows.Forms.Label label3;
         private FontAwesome.Sharp.IconButton iconButtonSearch;
         private System.Windows.Forms.TextBox textBoxSearch;
-        private System.Windows.Forms.Label labelPageNumber;
         private FontAwesome.Sharp.IconButton iconButtonPreviousPage;
         private FontAwesome.Sharp.IconButton iconButtonNextPage;
         private System.Windows.Forms.Button buttonRestore;
         private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Label labelSlash;
+        public System.Windows.Forms.Label labelTotalPageNumber;
+        public System.Windows.Forms.Label labelPageNumber;
     }
 }

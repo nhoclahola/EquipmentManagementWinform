@@ -58,17 +58,41 @@
     <Compile Include="Forms\AddEquipment.Designer.cs">
       <DependentUpon>AddEquipment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddEquipmentToRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEquipmentToRoom.Designer.cs">
+      <DependentUpon>AddEquipmentToRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddRoom.Designer.cs">
+      <DependentUpon>AddRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BorrowRequestManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BorrowRequestManagement.Designer.cs">
+      <DependentUpon>BorrowRequestManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EquipmentManagement.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\EquipmentManagement.Designer.cs">
       <DependentUpon>EquipmentManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoomManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoomManagement.Designer.cs">
+      <DependentUpon>RoomManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserManagement.cs">
       <SubType>Form</SubType>
@@ -84,11 +108,23 @@
     <EmbeddedResource Include="Forms\AddEquipment.resx">
       <DependentUpon>AddEquipment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddEquipmentToRoom.resx">
+      <DependentUpon>AddEquipmentToRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddRoom.resx">
+      <DependentUpon>AddRoom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BorrowRequestManagement.resx">
+      <DependentUpon>BorrowRequestManagement.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EquipmentManagement.resx">
       <DependentUpon>EquipmentManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoomManagement.resx">
+      <DependentUpon>RoomManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>

@@ -58,11 +58,17 @@ namespace EquipmentManagementWinform.Forms
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Người dùng đã được tạo thành công!");
-                    _userManagementForm.LoadDataIntoGridView();
+                    long userCount = await _userManagementForm.FetchUsersCountAsync();
+                    long totalPageNumber = (userCount - 1) / 10 + 1;
+                    _userManagementForm.LoadDataIntoGridView(1);
+                    _userManagementForm.labelPageNumber.Text = totalPageNumber.ToString();
+                    _userManagementForm.labelTotalPageNumber.Text = totalPageNumber.ToString();
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Có lỗi xảy ra khi tạo người dùng.");
+                    string error = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Có lỗi xảy ra khi tạo người dùng: {error}");
                 }
             }
         }

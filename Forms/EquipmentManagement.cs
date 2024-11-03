@@ -28,17 +28,21 @@ namespace EquipmentManagementWinform.Forms
             public int EquipmentId { get; set; }
             public string EquipmentName { get; set; }
             public string ImageUrl { get; set; }
-            public int TotalQuantity { get; set; }
-            public int RemainQuantity { get; set; }
+            public int? TotalQuantity { get; set; }
+            public int? RemainQuantity { get; set; }
             public List<Room> Rooms { get; set; }
         }
+
+        private long currentPageNumber = 1;
+        private long currentEquipmentId;
 
         public EquipmentManagement()
         {
             InitializeComponent();
-            //string imageUrl = "http://localhost:8080/uploads/equipments/abbb.jpg";
-            //LoadImageFromUrl(imageUrl);
-            LoadDataIntoGridView();
+            dataGridViewEquipment.CellContentClick += DataGridViewEquipments_CellClickDeleteEquipment;
+            dataGridViewEquipment.CellClick += DataGridViewEquipments_CellClick;
+            LoadDataIntoGridView(currentPageNumber);    // Khởi đầu là 1
+
         }
 
         private async void LoadImageFromUrl(string url)
@@ -67,12 +71,29 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
-        private async Task<List<Equipment>> FetchEquipmentsAsync()
+        public async Task<long> FetchEquipmentCountAsync()
         {
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = "http://localhost:8080/admin/equipments/all-quantities?page=0";
+                string apiUrl = "http://localhost:8080/admin/equipments/count";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string countString = await response.Content.ReadAsStringAsync();
+                    return long.Parse(countString);
+                }
+
+                return 0;
+            }
+        }
+
+        private async Task<List<Equipment>> FetchEquipmentsAsync(long pageNumber)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/equipments/all-quantities?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -85,11 +106,40 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
-        public async void LoadDataIntoGridView()
+        private async void deleteEquipment(long equipmentId)
         {
-            // Huỷ đăng ký sự kiện cũ (nếu có)
-            dataGridViewEquipment.CellClick -= DataGridViewUsers_CellClick;
-            List<Equipment> equipments = await FetchEquipmentsAsync();
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/equipments/{equipmentId}";
+                HttpResponseMessage response = await client.DeleteAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Trang mới nhất
+                    long equipmentCount = await FetchEquipmentCountAsync();
+                    long totalPageNumber = (equipmentCount - 1) / 10 + 1;
+                    LoadDataIntoGridView(currentPageNumber);
+                    labelPageNumber.Text = currentPageNumber.ToString();
+                    labelTotalPageNumber.Text = totalPageNumber.ToString();
+                    MessageBox.Show($"Đã xoá thiết bị có ID: {equipmentId}");
+                }
+                else
+                    MessageBox.Show($"Có lỗi xảy ra khi xoá người dùng với ID: {equipmentId}");
+            }
+        }
+
+        public async void LoadDataIntoGridView(long pageNumber)
+        {
+            //Check page
+            long equipmentCount = await FetchEquipmentCountAsync();
+            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
+            labelTotalPageNumber.Text = totalPageNumber.ToString();
+
+            // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+            dataGridViewEquipment.Columns.Clear();
+            dataGridViewEquipment.DataSource = null;
+
+            List<Equipment> equipments = await FetchEquipmentsAsync(pageNumber);
             if (equipments != null)
             {
                 // Đặt dữ liệu vào DataGridView
@@ -149,23 +199,14 @@ namespace EquipmentManagementWinform.Forms
                 // Không cho phép thay đổi kích thước hàng
                 dataGridViewEquipment.AllowUserToResizeRows = false;
 
-                // Xử lý sự kiện nhấn nút "Sửa" và "Xoá"
-                dataGridViewEquipment.CellContentClick += (s, e) =>
-                {
-                    if (e.ColumnIndex == dataGridViewEquipment.Columns["Delete"].Index && e.RowIndex >= 0)
-                    {
-                        // Xoá user logic
-                        string userId = dataGridViewEquipment.Rows[e.RowIndex].Cells["EquipmentId"].Value.ToString();
-                        DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá thiết bị với ID: {userId}?", "Xoá người dùng", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            // Thực hiện gọi API hoặc logic xoá user
-                            MessageBox.Show($"Xoá thông tin thiết bị với ID: {userId}");
-                        }
-                    }
-                };
-                // Sự kiện khi nhấn vào một dòng trong DataGridView
-                dataGridViewEquipment.CellClick += DataGridViewUsers_CellClick;
+                labelPageNumber.Text = pageNumber.ToString();
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+                // Reset value của text box
+                textBoxEquipmentName.Text = "";
+                textBoxTotalQuantity.Text = "";
+                textBoxRemainQuantity.Text = "";
+                pictureBoxEquipment.Image = null;
+                buttonAddEquipmentToRoom.Visible = false;
             }
             else
             {
@@ -200,7 +241,7 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
-        private async void DataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void DataGridViewEquipments_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -209,23 +250,75 @@ namespace EquipmentManagementWinform.Forms
                 string imageUrl = "http://localhost:8080/" + selectedEquipment.ImageUrl;
                 Equipment equipmentWithRooms = await GetEquipmentFromApiAsync("http://localhost:8080/admin/equipments/" + selectedEquipment.EquipmentId);
                 string rooms = "";
+                if (equipmentWithRooms.EquipmentId > 0)
+                    buttonAddEquipmentToRoom.Visible = true;
+                else
+                    buttonAddEquipmentToRoom.Visible = false;
                 if (equipmentWithRooms.Rooms != null && equipmentWithRooms.Rooms.Count > 0)
                 {
                     // Sử dụng LINQ để lấy tên các phòng và nối thành một chuỗi
                     rooms = string.Join(", ", equipmentWithRooms.Rooms.Select(room => room.RoomName));
                 }
                 textBoxEquipmentName.Text = equipmentWithRooms.EquipmentName;
-                textBoxTotalQuantity.Text = equipmentWithRooms.TotalQuantity.ToString();
-                textBoxRemainQuantity.Text = equipmentWithRooms.RemainQuantity.ToString();
+                textBoxTotalQuantity.Text = selectedEquipment.TotalQuantity.ToString();
+                textBoxRemainQuantity.Text = selectedEquipment.RemainQuantity.ToString();
                 labelRooms2.Text = rooms;
+                this.currentEquipmentId = equipmentWithRooms.EquipmentId;
                 LoadImageFromUrl(imageUrl);
+            }
+        }
+
+        // Phương thức xoá
+        private void DataGridViewEquipments_CellClickDeleteEquipment(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewEquipment.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == dataGridViewEquipment.Columns["Delete"].Index && e.RowIndex >= 0)
+                {
+                    string equipmentId = dataGridViewEquipment.Rows[e.RowIndex].Cells["EquipmentId"].Value.ToString();
+                    DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá thiết bị với ID: {equipmentId}?", "Xoá người dùng", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                        deleteEquipment(long.Parse(equipmentId));
+                }
             }
         }
 
         private void iconButtonAddEquipment_Click(object sender, EventArgs e)
         {
-            AddEquipment addEquipmentForm = new AddEquipment();
+            AddEquipment addEquipmentForm = new AddEquipment(this);
             addEquipmentForm.ShowDialog();
+        }
+
+        private async void iconButtonNextPage_Click(object sender, EventArgs e)
+        {
+            //Check page
+            long equipmentCount = await FetchEquipmentCountAsync();
+            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
+            currentPageNumber = long.Parse(labelPageNumber.Text);
+            if (currentPageNumber < totalPageNumber)
+            {
+                currentPageNumber += 1;
+                LoadDataIntoGridView(currentPageNumber);
+            }
+        }
+
+        private async void iconButtonPreviousPage_Click(object sender, EventArgs e)
+        {
+            //Check page
+            long equipmentCount = await FetchEquipmentCountAsync();
+            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
+            currentPageNumber = long.Parse(labelPageNumber.Text);
+            if (currentPageNumber > 1)
+            {
+                currentPageNumber -= 1;
+                LoadDataIntoGridView(currentPageNumber);
+            }
+        }
+
+        private void buttonAddEquipmentToRoom_Click(object sender, EventArgs e)
+        {
+            AddEquipmentToRoom addEquipmentToRoomForm = new AddEquipmentToRoom(this, currentEquipmentId);
+            addEquipmentToRoomForm.ShowDialog();
         }
     }
 }

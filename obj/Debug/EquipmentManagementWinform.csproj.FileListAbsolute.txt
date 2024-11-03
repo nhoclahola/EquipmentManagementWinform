@@ -16,3 +16,7 @@ D:\Workspace\Winform\EquipmentManagementWinform\bin\Debug\Guna.UI2.dll
 D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.AddUser.resources
 D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.EquipmentManagement.resources
 D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.AddEquipment.resources
+D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.BorrowRequestManagement.resources
+D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.AddEquipmentToRoom.resources
+D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.RoomManagement.resources
+D:\Workspace\Winform\EquipmentManagementWinform\obj\Debug\EquipmentManagementWinform.Forms.AddRoom.resources

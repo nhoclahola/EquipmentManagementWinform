@@ -42,6 +42,12 @@
             this.labelRooms1 = new System.Windows.Forms.Label();
             this.labelRooms2 = new System.Windows.Forms.Label();
             this.iconButtonAddEquipment = new FontAwesome.Sharp.IconButton();
+            this.labelTotalPageNumber = new System.Windows.Forms.Label();
+            this.labelSlash = new System.Windows.Forms.Label();
+            this.iconButtonNextPage = new FontAwesome.Sharp.IconButton();
+            this.iconButtonPreviousPage = new FontAwesome.Sharp.IconButton();
+            this.labelPageNumber = new System.Windows.Forms.Label();
+            this.buttonAddEquipmentToRoom = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEquipment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEquipment)).BeginInit();
             this.SuspendLayout();
@@ -67,7 +73,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewEquipment.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewEquipment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -77,10 +82,10 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewEquipment.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewEquipment.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dataGridViewEquipment.Location = new System.Drawing.Point(23, 104);
+            this.dataGridViewEquipment.Location = new System.Drawing.Point(23, 93);
             this.dataGridViewEquipment.Name = "dataGridViewEquipment";
             this.dataGridViewEquipment.RowHeadersVisible = false;
-            this.dataGridViewEquipment.Size = new System.Drawing.Size(513, 261);
+            this.dataGridViewEquipment.Size = new System.Drawing.Size(513, 250);
             this.dataGridViewEquipment.TabIndex = 2;
             this.dataGridViewEquipment.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridViewEquipment.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -93,7 +98,7 @@
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dataGridViewEquipment.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dataGridViewEquipment.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.Height = 23;
             this.dataGridViewEquipment.ThemeStyle.ReadOnly = false;
             this.dataGridViewEquipment.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
@@ -153,6 +158,7 @@
             this.textBoxTotalQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTotalQuantity.Location = new System.Drawing.Point(768, 257);
             this.textBoxTotalQuantity.Name = "textBoxTotalQuantity";
+            this.textBoxTotalQuantity.ReadOnly = true;
             this.textBoxTotalQuantity.Size = new System.Drawing.Size(33, 21);
             this.textBoxTotalQuantity.TabIndex = 16;
             // 
@@ -161,6 +167,7 @@
             this.textBoxRemainQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxRemainQuantity.Location = new System.Drawing.Point(768, 294);
             this.textBoxRemainQuantity.Name = "textBoxRemainQuantity";
+            this.textBoxRemainQuantity.ReadOnly = true;
             this.textBoxRemainQuantity.Size = new System.Drawing.Size(33, 21);
             this.textBoxRemainQuantity.TabIndex = 17;
             // 
@@ -195,12 +202,87 @@
             this.iconButtonAddEquipment.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
             this.iconButtonAddEquipment.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
             this.iconButtonAddEquipment.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonAddEquipment.Location = new System.Drawing.Point(461, 32);
+            this.iconButtonAddEquipment.Location = new System.Drawing.Point(461, 21);
             this.iconButtonAddEquipment.Name = "iconButtonAddEquipment";
             this.iconButtonAddEquipment.Size = new System.Drawing.Size(75, 66);
             this.iconButtonAddEquipment.TabIndex = 20;
             this.iconButtonAddEquipment.UseVisualStyleBackColor = true;
             this.iconButtonAddEquipment.Click += new System.EventHandler(this.iconButtonAddEquipment_Click);
+            // 
+            // labelTotalPageNumber
+            // 
+            this.labelTotalPageNumber.AutoSize = true;
+            this.labelTotalPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotalPageNumber.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTotalPageNumber.Location = new System.Drawing.Point(280, 375);
+            this.labelTotalPageNumber.Name = "labelTotalPageNumber";
+            this.labelTotalPageNumber.Size = new System.Drawing.Size(17, 17);
+            this.labelTotalPageNumber.TabIndex = 38;
+            this.labelTotalPageNumber.Text = "1";
+            // 
+            // labelSlash
+            // 
+            this.labelSlash.AutoSize = true;
+            this.labelSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSlash.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelSlash.Location = new System.Drawing.Point(261, 375);
+            this.labelSlash.Name = "labelSlash";
+            this.labelSlash.Size = new System.Drawing.Size(13, 17);
+            this.labelSlash.TabIndex = 37;
+            this.labelSlash.Text = "/";
+            // 
+            // iconButtonNextPage
+            // 
+            this.iconButtonNextPage.FlatAppearance.BorderSize = 0;
+            this.iconButtonNextPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonNextPage.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            this.iconButtonNextPage.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonNextPage.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonNextPage.IconSize = 28;
+            this.iconButtonNextPage.Location = new System.Drawing.Point(326, 365);
+            this.iconButtonNextPage.Name = "iconButtonNextPage";
+            this.iconButtonNextPage.Size = new System.Drawing.Size(43, 37);
+            this.iconButtonNextPage.TabIndex = 36;
+            this.iconButtonNextPage.UseVisualStyleBackColor = true;
+            this.iconButtonNextPage.Click += new System.EventHandler(this.iconButtonNextPage_Click);
+            // 
+            // iconButtonPreviousPage
+            // 
+            this.iconButtonPreviousPage.FlatAppearance.BorderSize = 0;
+            this.iconButtonPreviousPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonPreviousPage.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
+            this.iconButtonPreviousPage.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonPreviousPage.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonPreviousPage.IconSize = 28;
+            this.iconButtonPreviousPage.Location = new System.Drawing.Point(171, 365);
+            this.iconButtonPreviousPage.Name = "iconButtonPreviousPage";
+            this.iconButtonPreviousPage.Size = new System.Drawing.Size(43, 37);
+            this.iconButtonPreviousPage.TabIndex = 35;
+            this.iconButtonPreviousPage.UseVisualStyleBackColor = true;
+            this.iconButtonPreviousPage.Click += new System.EventHandler(this.iconButtonPreviousPage_Click);
+            // 
+            // labelPageNumber
+            // 
+            this.labelPageNumber.AutoSize = true;
+            this.labelPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPageNumber.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPageNumber.Location = new System.Drawing.Point(238, 375);
+            this.labelPageNumber.Name = "labelPageNumber";
+            this.labelPageNumber.Size = new System.Drawing.Size(17, 17);
+            this.labelPageNumber.TabIndex = 34;
+            this.labelPageNumber.Text = "1";
+            // 
+            // buttonAddEquipmentToRoom
+            // 
+            this.buttonAddEquipmentToRoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEquipmentToRoom.Location = new System.Drawing.Point(594, 365);
+            this.buttonAddEquipmentToRoom.Name = "buttonAddEquipmentToRoom";
+            this.buttonAddEquipmentToRoom.Size = new System.Drawing.Size(154, 58);
+            this.buttonAddEquipmentToRoom.TabIndex = 39;
+            this.buttonAddEquipmentToRoom.Text = "Thêm thiết bị này vào phòng";
+            this.buttonAddEquipmentToRoom.UseVisualStyleBackColor = true;
+            this.buttonAddEquipmentToRoom.Visible = false;
+            this.buttonAddEquipmentToRoom.Click += new System.EventHandler(this.buttonAddEquipmentToRoom_Click);
             // 
             // EquipmentManagement
             // 
@@ -208,6 +290,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1001, 450);
+            this.Controls.Add(this.buttonAddEquipmentToRoom);
+            this.Controls.Add(this.labelTotalPageNumber);
+            this.Controls.Add(this.labelSlash);
+            this.Controls.Add(this.iconButtonNextPage);
+            this.Controls.Add(this.iconButtonPreviousPage);
+            this.Controls.Add(this.labelPageNumber);
             this.Controls.Add(this.iconButtonAddEquipment);
             this.Controls.Add(this.labelRooms2);
             this.Controls.Add(this.labelRooms1);
@@ -241,5 +329,11 @@
         private System.Windows.Forms.Label labelRooms1;
         private System.Windows.Forms.Label labelRooms2;
         private FontAwesome.Sharp.IconButton iconButtonAddEquipment;
+        private System.Windows.Forms.Label labelSlash;
+        private FontAwesome.Sharp.IconButton iconButtonNextPage;
+        private FontAwesome.Sharp.IconButton iconButtonPreviousPage;
+        public System.Windows.Forms.Label labelPageNumber;
+        public System.Windows.Forms.Label labelTotalPageNumber;
+        private System.Windows.Forms.Button buttonAddEquipmentToRoom;
     }
 }

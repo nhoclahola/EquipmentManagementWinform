@@ -103,6 +103,7 @@ namespace EquipmentManagementWinform
         private void roomButton_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new RoomManagement());
         }
 
         private void equipButton_Click(object sender, EventArgs e)
@@ -114,6 +115,7 @@ namespace EquipmentManagementWinform
         private void requestButton_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color5);
+            OpenChildForm(new BorrowRequestManagement());
         }
 
         private void homeButton_Click(object sender, EventArgs e)

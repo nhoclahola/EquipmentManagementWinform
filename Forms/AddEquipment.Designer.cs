@@ -33,6 +33,9 @@
             this.textBoxEquipmentName = new System.Windows.Forms.TextBox();
             this.labelEquipmentName = new System.Windows.Forms.Label();
             this.buttonSelectImage = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.pictureBoxEquipmentImage = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEquipmentImage)).BeginInit();
             this.SuspendLayout();
             // 
             // iconButtonAddEquipment
@@ -87,6 +90,27 @@
             this.buttonSelectImage.TabIndex = 45;
             this.buttonSelectImage.Text = "Chọn ảnh";
             this.buttonSelectImage.UseVisualStyleBackColor = true;
+            this.buttonSelectImage.Click += new System.EventHandler(this.buttonSelectImage_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAdd.Location = new System.Drawing.Point(174, 326);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(87, 35);
+            this.buttonAdd.TabIndex = 46;
+            this.buttonAdd.Text = "Thêm";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_ClickAsync);
+            // 
+            // pictureBoxEquipmentImage
+            // 
+            this.pictureBoxEquipmentImage.Location = new System.Drawing.Point(164, 153);
+            this.pictureBoxEquipmentImage.Name = "pictureBoxEquipmentImage";
+            this.pictureBoxEquipmentImage.Size = new System.Drawing.Size(177, 125);
+            this.pictureBoxEquipmentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxEquipmentImage.TabIndex = 47;
+            this.pictureBoxEquipmentImage.TabStop = false;
             // 
             // AddEquipment
             // 
@@ -94,6 +118,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(470, 450);
+            this.Controls.Add(this.pictureBoxEquipmentImage);
+            this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonSelectImage);
             this.Controls.Add(this.textBoxEquipmentName);
             this.Controls.Add(this.labelEquipmentName);
@@ -101,6 +127,7 @@
             this.Controls.Add(this.iconButtonAddEquipment);
             this.Name = "AddEquipment";
             this.Text = "AddEquipment";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEquipmentImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,5 +140,7 @@
         private System.Windows.Forms.TextBox textBoxEquipmentName;
         private System.Windows.Forms.Label labelEquipmentName;
         private System.Windows.Forms.Button buttonSelectImage;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.PictureBox pictureBoxEquipmentImage;
     }
 }
