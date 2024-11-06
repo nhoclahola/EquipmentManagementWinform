@@ -30,11 +30,13 @@ namespace EquipmentManagementWinform.Forms
         }
 
         private long currentPageNumber = 1;
+        private long totalPageNumber;
+        private bool isSearch = false;
 
         public UserManagement()
         {
             InitializeComponent();
-
+            iconButtonCancelSearch.Visible = false;
             // Tùy chỉnh DataGridView
             dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewUsers.DefaultCellStyle.BackColor = Color.White;
@@ -102,6 +104,42 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
+        public async Task<long> FetchSearchUsersCountAsync(string query)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/users/search/count?query={query}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string countString = await response.Content.ReadAsStringAsync();
+                    return long.Parse(countString);
+                }
+
+                return 0;
+            }
+        }
+
+        private async Task<List<User>> FetchSearchUsersAsync(string query, long pageNumber)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/users/search?query={query}&page={pageNumber}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    // Deserialize JSON thành danh sách User
+                    List<User> users = JsonConvert.DeserializeObject<List<User>>(jsonResponse);
+                    return users;
+                }
+
+                return null;
+            }
+        }
+
         private async void deleteUser(long userId)
         {
             using (HttpClient client = new HttpClient())
@@ -125,15 +163,29 @@ namespace EquipmentManagementWinform.Forms
 
         public async void LoadDataIntoGridView(long pageNumber)
         {
-            //Check page
-            long userCount = await FetchUsersCountAsync();
-            long totalPageNumber = (userCount - 1) / 10 + 1;
-            labelTotalPageNumber.Text = totalPageNumber.ToString();
-
-            // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
-            dataGridViewUsers.Columns.Clear();
-            dataGridViewUsers.DataSource = null;
-            List<User> users = await FetchUsersAsync(pageNumber);
+            List<User> users;
+            if (!isSearch)
+            {
+                //Check page
+                long userCount = await FetchUsersCountAsync();
+                totalPageNumber = (userCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewUsers.Columns.Clear();
+                dataGridViewUsers.DataSource = null;
+                users = await FetchUsersAsync(pageNumber);
+            }
+            else
+            {
+                //Check page
+                long userCount = await FetchSearchUsersCountAsync(textBoxSearch.Text);
+                totalPageNumber = (userCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewUsers.Columns.Clear();
+                dataGridViewUsers.DataSource = null;
+                users = await FetchSearchUsersAsync(textBoxSearch.Text, pageNumber);
+            }
             if (users != null)
             {
                 // Đặt dữ liệu vào DataGridView
@@ -182,6 +234,9 @@ namespace EquipmentManagementWinform.Forms
 
                 dateTimePickerDob.Format = DateTimePickerFormat.Custom;
                 dateTimePickerDob.CustomFormat = " ";
+
+                labelPageNumber.Text = pageNumber.ToString();
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
             }
             else
             {
@@ -250,8 +305,6 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonNextPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long userCount = await FetchUsersCountAsync();
-            long totalPageNumber = (userCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber < totalPageNumber)
             {
@@ -264,8 +317,6 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonPreviousPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long userCount = await FetchUsersCountAsync();
-            long totalPageNumber = (userCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber > 1)
             {
@@ -273,6 +324,27 @@ namespace EquipmentManagementWinform.Forms
                 labelPageNumber.Text = currentPageNumber.ToString();
                 LoadDataIntoGridView(currentPageNumber);
             }
+        }
+
+        private async void iconButtonSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBoxSearch.Text))
+            {
+                isSearch = true;
+                currentPageNumber = 1;
+                iconButtonSearch.Visible = false;
+                iconButtonCancelSearch.Visible = true;
+                LoadDataIntoGridView(currentPageNumber);
+            }    
+        }
+
+        private async void iconButtonCancelSearch_Click(object sender, EventArgs e)
+        {
+            isSearch = false;
+            currentPageNumber = 1;
+            iconButtonSearch.Visible = true;
+            iconButtonCancelSearch.Visible = false;
+            LoadDataIntoGridView(currentPageNumber);
         }
     }
 }

@@ -33,7 +33,7 @@
             this.equipButton = new FontAwesome.Sharp.IconButton();
             this.roomButton = new FontAwesome.Sharp.IconButton();
             this.userButton = new FontAwesome.Sharp.IconButton();
-            this.searchButton = new FontAwesome.Sharp.IconButton();
+            this.roomRequestButton = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.homeButton = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
@@ -51,11 +51,11 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(68)))));
+            this.panelMenu.Controls.Add(this.roomRequestButton);
             this.panelMenu.Controls.Add(this.requestButton);
             this.panelMenu.Controls.Add(this.equipButton);
             this.panelMenu.Controls.Add(this.roomButton);
             this.panelMenu.Controls.Add(this.userButton);
-            this.panelMenu.Controls.Add(this.searchButton);
             this.panelMenu.Controls.Add(this.panelLogo);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
@@ -75,7 +75,7 @@
             this.requestButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.requestButton.IconSize = 32;
             this.requestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.requestButton.Location = new System.Drawing.Point(0, 380);
+            this.requestButton.Location = new System.Drawing.Point(0, 320);
             this.requestButton.Name = "requestButton";
             this.requestButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.requestButton.Size = new System.Drawing.Size(220, 60);
@@ -98,7 +98,7 @@
             this.equipButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.equipButton.IconSize = 32;
             this.equipButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.equipButton.Location = new System.Drawing.Point(0, 320);
+            this.equipButton.Location = new System.Drawing.Point(0, 260);
             this.equipButton.Name = "equipButton";
             this.equipButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.equipButton.Size = new System.Drawing.Size(220, 60);
@@ -121,7 +121,7 @@
             this.roomButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.roomButton.IconSize = 32;
             this.roomButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.roomButton.Location = new System.Drawing.Point(0, 260);
+            this.roomButton.Location = new System.Drawing.Point(0, 200);
             this.roomButton.Name = "roomButton";
             this.roomButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.roomButton.Size = new System.Drawing.Size(220, 60);
@@ -144,7 +144,7 @@
             this.userButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.userButton.IconSize = 32;
             this.userButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.userButton.Location = new System.Drawing.Point(0, 200);
+            this.userButton.Location = new System.Drawing.Point(0, 140);
             this.userButton.Name = "userButton";
             this.userButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.userButton.Size = new System.Drawing.Size(220, 60);
@@ -155,28 +155,28 @@
             this.userButton.UseVisualStyleBackColor = true;
             this.userButton.Click += new System.EventHandler(this.userButton_Click);
             // 
-            // searchButton
+            // roomRequestButton
             // 
-            this.searchButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.searchButton.FlatAppearance.BorderSize = 0;
-            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.searchButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.searchButton.IconColor = System.Drawing.Color.Gainsboro;
-            this.searchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.searchButton.IconSize = 32;
-            this.searchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.searchButton.Location = new System.Drawing.Point(0, 140);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.searchButton.Size = new System.Drawing.Size(220, 60);
-            this.searchButton.TabIndex = 2;
-            this.searchButton.Text = "Tìm kiếm";
-            this.searchButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.searchButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            this.roomRequestButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.roomRequestButton.FlatAppearance.BorderSize = 0;
+            this.roomRequestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roomRequestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomRequestButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.roomRequestButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.roomRequestButton.IconColor = System.Drawing.Color.Gainsboro;
+            this.roomRequestButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.roomRequestButton.IconSize = 32;
+            this.roomRequestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.roomRequestButton.Location = new System.Drawing.Point(0, 380);
+            this.roomRequestButton.Name = "roomRequestButton";
+            this.roomRequestButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.roomRequestButton.Size = new System.Drawing.Size(220, 60);
+            this.roomRequestButton.TabIndex = 2;
+            this.roomRequestButton.Text = "Tìm kiếm";
+            this.roomRequestButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.roomRequestButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.roomRequestButton.UseVisualStyleBackColor = true;
+            this.roomRequestButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // panelLogo
             // 
@@ -279,7 +279,7 @@
 
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelLogo;
-        private FontAwesome.Sharp.IconButton searchButton;
+        private FontAwesome.Sharp.IconButton roomRequestButton;
         private FontAwesome.Sharp.IconButton requestButton;
         private FontAwesome.Sharp.IconButton equipButton;
         private FontAwesome.Sharp.IconButton roomButton;

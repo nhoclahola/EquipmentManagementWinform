@@ -47,8 +47,6 @@ namespace EquipmentManagementWinform
             public static Color color4 = Color.FromArgb(95, 77, 221);
             public static Color color5 = Color.FromArgb(249, 88, 155);
             public static Color color6 = Color.FromArgb(24, 161, 251);
-
-
         }
 
         private void ActivateButton(object senderButton, Color color)
@@ -92,6 +90,7 @@ namespace EquipmentManagementWinform
         private void searchButton_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
+            OpenChildForm(new RoomBorrowRequestManagement());
         }
 
         private void userButton_Click(object sender, EventArgs e)

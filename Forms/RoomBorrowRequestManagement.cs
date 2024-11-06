@@ -9,11 +9,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static EquipmentManagementWinform.Forms.AddEquipmentToRoom;
 
 namespace EquipmentManagementWinform.Forms
 {
-    public partial class BorrowRequestManagement : Form
+    public partial class RoomBorrowRequestManagement : Form
     {
         public class User
         {
@@ -31,18 +30,10 @@ namespace EquipmentManagementWinform.Forms
             public string RoomName { get; set; }
         }
 
-        public class Equipment
-        {
-            public long EquipmentId { get; set; }
-            public string EquipmentName { get; set; }
-            public string ImageUrl { get; set; }
-        }
-
         public class BorrowRequest
         {
             public long Id { get; set; }
             public User User { get; set; }
-            public Equipment Equipment { get; set; }
             public Room Room { get; set; }
             public string RequestDate { get; set; }
             public string BorrowDate { get; set; }
@@ -53,8 +44,6 @@ namespace EquipmentManagementWinform.Forms
 
             public long RoomId => Room.RoomId;
             public string RoomName => Room?.RoomName;
-            public long EquipmentId => Equipment.EquipmentId;
-            public string EquipmentName => Equipment?.EquipmentName;
 
             public long Quantity { get; set; }
             public string Status { get; set; }
@@ -64,7 +53,7 @@ namespace EquipmentManagementWinform.Forms
         private long currentPageNumber = 1;
         private BorrowRequest currentBorrowRequest;
 
-        public BorrowRequestManagement()
+        public RoomBorrowRequestManagement()
         {
             InitializeComponent();
 
@@ -106,7 +95,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = "http://localhost:8080/admin/borrow-request/count";
+                string apiUrl = "http://localhost:8080/admin/room-borrow-request/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -122,7 +111,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/borrow-request?page={pageNumber}";
+                string apiUrl = $"http://localhost:8080/admin/room-borrow-request?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -166,8 +155,6 @@ namespace EquipmentManagementWinform.Forms
                 dataGridViewBorrowRequest.Columns["Username"].HeaderText = "Username";
                 dataGridViewBorrowRequest.Columns["RoomId"].HeaderText = "ID phòng";
                 dataGridViewBorrowRequest.Columns["RoomName"].HeaderText = "Tên phòng";
-                dataGridViewBorrowRequest.Columns["EquipmentId"].HeaderText = "ID thiết bị";
-                dataGridViewBorrowRequest.Columns["EquipmentName"].HeaderText = "Tên thiết bị";
                 dataGridViewBorrowRequest.Columns["Quantity"].HeaderText = "Số lượng mượn";
                 dataGridViewBorrowRequest.Columns["RequestDate"].HeaderText = "Ngày yêu cầu";
                 dataGridViewBorrowRequest.Columns["BorrowDate"].HeaderText = "Ngày mượn";
@@ -182,8 +169,6 @@ namespace EquipmentManagementWinform.Forms
                 dataGridViewBorrowRequest.Columns["User"].Visible = false;
                 dataGridViewBorrowRequest.Columns["Room"].Visible = false;
                 dataGridViewBorrowRequest.Columns["RoomId"].Visible = false;
-                dataGridViewBorrowRequest.Columns["Equipment"].Visible = false;
-                dataGridViewBorrowRequest.Columns["EquipmentId"].Visible = false;
                 //dataGridViewBorrowRequest.Columns["RequestDate"].Visible = false;
                 dataGridViewBorrowRequest.Columns["BorrowDate"].Visible = false;
                 dataGridViewBorrowRequest.Columns["ReturnDate"].Visible = false;
@@ -204,12 +189,11 @@ namespace EquipmentManagementWinform.Forms
 
                 labelPageNumber.Text = pageNumber.ToString();
                 labelTotalPageNumber.Text = totalPageNumber.ToString();
-                // Reset value của text box
+                //Reset value của text box
                 textBoxRequestDate.Text = "";
                 textBoxBorrowDate.Text = "";
                 textBoxReturnDate.Text = "";
                 textBoxRoomId.Text = "";
-                textBoxEquipmentId.Text = "";
                 labelStatus.Text = "";
                 buttonApprove.Visible = false;
                 buttonReject.Visible = false;
@@ -305,7 +289,7 @@ namespace EquipmentManagementWinform.Forms
                     buttonApprove.Visible = false;
                     buttonReject.Visible = false;
                     buttonReturned.Visible = false;
-                }    
+                }
 
                 // Date
                 if (selectedBorrowRequest.RequestDate != null)
@@ -323,7 +307,6 @@ namespace EquipmentManagementWinform.Forms
 
                 //
                 textBoxRoomId.Text = selectedBorrowRequest.RoomId.ToString();
-                textBoxEquipmentId.Text = selectedBorrowRequest.EquipmentId.ToString();
                 this.currentBorrowRequest = selectedBorrowRequest;
             }
         }
@@ -358,17 +341,17 @@ namespace EquipmentManagementWinform.Forms
         {
             if (currentBorrowRequest != null)
             {
-                DialogResult dialogResult = MessageBox.Show($"Từ chối yêu cầu mượn thiết bị này?", "Từ chối cho mượn thiết bị", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show($"Từ chối yêu cầu mượn phòng này?", "Từ chối cho mượn phòng", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/borrow-request/{currentBorrowRequest.Id}/reject", content);
+                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/reject", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
-                            MessageBox.Show($"Đã từ chối cho mượn thiết bị {currentBorrowRequest.EquipmentName} tại phòng {currentBorrowRequest.RoomName} !");
+                            MessageBox.Show($"Đã từ chối cho mượn phòng {currentBorrowRequest.RoomName}!");
                             LoadDataIntoGridView(currentPageNumber);
                         }
                         else
@@ -385,17 +368,17 @@ namespace EquipmentManagementWinform.Forms
         {
             if (currentBorrowRequest != null)
             {
-                DialogResult dialogResult = MessageBox.Show($"Chấp nhận yêu cầu mượn thiết bị này?", "Chấp nhận cho mượn thiết bị", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show($"Chấp nhận yêu cầu mượn phòng này?", "Chấp nhận cho mượn phòng", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/borrow-request/{currentBorrowRequest.Id}/approve", content);
+                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/approve", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
-                            MessageBox.Show($"Đã chấp nhận cho mượn thiết bị {currentBorrowRequest.EquipmentName} tại phòng {currentBorrowRequest.RoomName}!");
+                            MessageBox.Show($"Đã chấp nhận cho mượn phòng {currentBorrowRequest.RoomName}!");
                             LoadDataIntoGridView(currentPageNumber);
                         }
                         else
@@ -412,17 +395,17 @@ namespace EquipmentManagementWinform.Forms
         {
             if (currentBorrowRequest != null)
             {
-                DialogResult dialogResult = MessageBox.Show($"Đánh dấu thiết bị này đã được trả?", "Trả thiết bị", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show($"Đánh dấu phòng này đã được trả?", "Trả phòng", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/borrow-request/{currentBorrowRequest.Id}/returned", content);
+                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/returned", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
-                            MessageBox.Show($"Đã đánh dấu thiết bị {currentBorrowRequest.EquipmentName} được trả lại phòng {currentBorrowRequest.RoomName}!");
+                            MessageBox.Show($"Đã đánh dấu lại phòng {currentBorrowRequest.RoomName} được trả!");
                             LoadDataIntoGridView(currentPageNumber);
                         }
                         else

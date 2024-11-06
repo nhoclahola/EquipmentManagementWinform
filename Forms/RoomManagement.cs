@@ -18,6 +18,7 @@ namespace EquipmentManagementWinform.Forms
         {
             public long RoomId { get; set; }
             public string RoomName { get; set; }
+            public bool Borrowed { get; set; }
         }
 
         public class Equipment
@@ -211,6 +212,8 @@ namespace EquipmentManagementWinform.Forms
                 // Đổi tên các cột trong DataGridView
                 dataGridViewRooms.Columns["RoomId"].HeaderText = "ID";
                 dataGridViewRooms.Columns["RoomName"].HeaderText = "Tên phòng";
+                dataGridViewRooms.Columns["Borrowed"].HeaderText = "Đang mượn";
+
 
                 // Readonly
                 dataGridViewRooms.Columns["RoomId"].ReadOnly = true;

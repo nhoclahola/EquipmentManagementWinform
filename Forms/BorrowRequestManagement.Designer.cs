@@ -51,7 +51,7 @@
             this.labelRoomId = new System.Windows.Forms.Label();
             this.textBoxEquipmentId = new System.Windows.Forms.TextBox();
             this.labelEquipmentId = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBorrowRequest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridViewBorrowRequest)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewBorrowRequest
@@ -59,8 +59,8 @@
             dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
             this.dataGridViewBorrowRequest.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (100)))), ((int) (((byte) (88)))), ((int) (((byte) (255)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             dataGridViewCellStyle20.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -69,13 +69,13 @@
             this.dataGridViewBorrowRequest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (71)))), ((int) (((byte) (69)))), ((int) (((byte) (94)))));
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (231)))), ((int) (((byte) (229)))), ((int) (((byte) (255)))));
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (71)))), ((int) (((byte) (69)))), ((int) (((byte) (94)))));
             dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewBorrowRequest.DefaultCellStyle = dataGridViewCellStyle21;
-            this.dataGridViewBorrowRequest.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGridViewBorrowRequest.GridColor = System.Drawing.Color.FromArgb(((int) (((byte) (231)))), ((int) (((byte) (229)))), ((int) (((byte) (255)))));
             this.dataGridViewBorrowRequest.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewBorrowRequest.Name = "dataGridViewBorrowRequest";
             this.dataGridViewBorrowRequest.ReadOnly = true;
@@ -88,26 +88,26 @@
             this.dataGridViewBorrowRequest.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
             this.dataGridViewBorrowRequest.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
             this.dataGridViewBorrowRequest.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dataGridViewBorrowRequest.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dataGridViewBorrowRequest.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int) (((byte) (231)))), ((int) (((byte) (229)))), ((int) (((byte) (255)))));
+            this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (100)))), ((int) (((byte) (88)))), ((int) (((byte) (255)))));
             this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridViewBorrowRequest.ThemeStyle.HeaderStyle.Height = 23;
             this.dataGridViewBorrowRequest.ThemeStyle.ReadOnly = true;
             this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (71)))), ((int) (((byte) (69)))), ((int) (((byte) (94)))));
             this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.Height = 22;
-            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (231)))), ((int) (((byte) (229)))), ((int) (((byte) (255)))));
+            this.dataGridViewBorrowRequest.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (71)))), ((int) (((byte) (69)))), ((int) (((byte) (94)))));
             // 
             // labelTotalPageNumber
             // 
             this.labelTotalPageNumber.AutoSize = true;
-            this.labelTotalPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotalPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelTotalPageNumber.ForeColor = System.Drawing.SystemColors.Control;
             this.labelTotalPageNumber.Location = new System.Drawing.Point(450, 304);
             this.labelTotalPageNumber.Name = "labelTotalPageNumber";
@@ -118,7 +118,7 @@
             // labelSlash
             // 
             this.labelSlash.AutoSize = true;
-            this.labelSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelSlash.ForeColor = System.Drawing.SystemColors.Control;
             this.labelSlash.Location = new System.Drawing.Point(431, 304);
             this.labelSlash.Name = "labelSlash";
@@ -131,7 +131,7 @@
             this.iconButtonNextPage.FlatAppearance.BorderSize = 0;
             this.iconButtonNextPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iconButtonNextPage.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
-            this.iconButtonNextPage.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonNextPage.IconColor = System.Drawing.Color.FromArgb(((int) (((byte) (249)))), ((int) (((byte) (118)))), ((int) (((byte) (176)))));
             this.iconButtonNextPage.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonNextPage.IconSize = 28;
             this.iconButtonNextPage.Location = new System.Drawing.Point(496, 294);
@@ -146,7 +146,7 @@
             this.iconButtonPreviousPage.FlatAppearance.BorderSize = 0;
             this.iconButtonPreviousPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iconButtonPreviousPage.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
-            this.iconButtonPreviousPage.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonPreviousPage.IconColor = System.Drawing.Color.FromArgb(((int) (((byte) (249)))), ((int) (((byte) (118)))), ((int) (((byte) (176)))));
             this.iconButtonPreviousPage.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonPreviousPage.IconSize = 28;
             this.iconButtonPreviousPage.Location = new System.Drawing.Point(341, 294);
@@ -159,7 +159,7 @@
             // labelPageNumber
             // 
             this.labelPageNumber.AutoSize = true;
-            this.labelPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPageNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelPageNumber.ForeColor = System.Drawing.SystemColors.Control;
             this.labelPageNumber.Location = new System.Drawing.Point(408, 304);
             this.labelPageNumber.Name = "labelPageNumber";
@@ -169,7 +169,7 @@
             // 
             // textBoxRequestDate
             // 
-            this.textBoxRequestDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRequestDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxRequestDate.Location = new System.Drawing.Point(130, 343);
             this.textBoxRequestDate.Name = "textBoxRequestDate";
             this.textBoxRequestDate.ReadOnly = true;
@@ -180,7 +180,7 @@
             // 
             this.labelRequestDate.AutoSize = true;
             this.labelRequestDate.BackColor = System.Drawing.Color.Transparent;
-            this.labelRequestDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRequestDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelRequestDate.ForeColor = System.Drawing.SystemColors.Control;
             this.labelRequestDate.Location = new System.Drawing.Point(9, 346);
             this.labelRequestDate.Name = "labelRequestDate";
@@ -190,7 +190,7 @@
             // 
             // textBoxBorrowDate
             // 
-            this.textBoxBorrowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBorrowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxBorrowDate.Location = new System.Drawing.Point(130, 382);
             this.textBoxBorrowDate.Name = "textBoxBorrowDate";
             this.textBoxBorrowDate.ReadOnly = true;
@@ -201,7 +201,7 @@
             // 
             this.labelBorrowDate.AutoSize = true;
             this.labelBorrowDate.BackColor = System.Drawing.Color.Transparent;
-            this.labelBorrowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBorrowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelBorrowDate.ForeColor = System.Drawing.SystemColors.Control;
             this.labelBorrowDate.Location = new System.Drawing.Point(9, 385);
             this.labelBorrowDate.Name = "labelBorrowDate";
@@ -211,7 +211,7 @@
             // 
             // textBoxReturnDate
             // 
-            this.textBoxReturnDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxReturnDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxReturnDate.Location = new System.Drawing.Point(130, 422);
             this.textBoxReturnDate.Name = "textBoxReturnDate";
             this.textBoxReturnDate.ReadOnly = true;
@@ -222,7 +222,7 @@
             // 
             this.labelReturnDate.AutoSize = true;
             this.labelReturnDate.BackColor = System.Drawing.Color.Transparent;
-            this.labelReturnDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReturnDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelReturnDate.ForeColor = System.Drawing.SystemColors.Control;
             this.labelReturnDate.Location = new System.Drawing.Point(9, 425);
             this.labelReturnDate.Name = "labelReturnDate";
@@ -232,7 +232,7 @@
             // 
             // buttonReturned
             // 
-            this.buttonReturned.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReturned.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buttonReturned.Location = new System.Drawing.Point(677, 357);
             this.buttonReturned.Name = "buttonReturned";
             this.buttonReturned.Size = new System.Drawing.Size(152, 66);
@@ -244,7 +244,7 @@
             // 
             // buttonApprove
             // 
-            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buttonApprove.Location = new System.Drawing.Point(784, 397);
             this.buttonApprove.Name = "buttonApprove";
             this.buttonApprove.Size = new System.Drawing.Size(170, 40);
@@ -256,7 +256,7 @@
             // 
             // buttonReject
             // 
-            this.buttonReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buttonReject.Location = new System.Drawing.Point(580, 397);
             this.buttonReject.Name = "buttonReject";
             this.buttonReject.Size = new System.Drawing.Size(170, 40);
@@ -270,7 +270,7 @@
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.BackColor = System.Drawing.Color.Transparent;
-            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelStatus.ForeColor = System.Drawing.Color.Red;
             this.labelStatus.Location = new System.Drawing.Point(566, 304);
             this.labelStatus.MaximumSize = new System.Drawing.Size(300, 50);
@@ -280,7 +280,7 @@
             // 
             // textBoxRoomId
             // 
-            this.textBoxRoomId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxRoomId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxRoomId.Location = new System.Drawing.Point(411, 340);
             this.textBoxRoomId.Name = "textBoxRoomId";
             this.textBoxRoomId.ReadOnly = true;
@@ -291,7 +291,7 @@
             // 
             this.labelRoomId.AutoSize = true;
             this.labelRoomId.BackColor = System.Drawing.Color.Transparent;
-            this.labelRoomId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRoomId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelRoomId.ForeColor = System.Drawing.SystemColors.Control;
             this.labelRoomId.Location = new System.Drawing.Point(290, 343);
             this.labelRoomId.Name = "labelRoomId";
@@ -301,7 +301,7 @@
             // 
             // textBoxEquipmentId
             // 
-            this.textBoxEquipmentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxEquipmentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.textBoxEquipmentId.Location = new System.Drawing.Point(411, 379);
             this.textBoxEquipmentId.Name = "textBoxEquipmentId";
             this.textBoxEquipmentId.ReadOnly = true;
@@ -312,7 +312,7 @@
             // 
             this.labelEquipmentId.AutoSize = true;
             this.labelEquipmentId.BackColor = System.Drawing.Color.Transparent;
-            this.labelEquipmentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEquipmentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.labelEquipmentId.ForeColor = System.Drawing.SystemColors.Control;
             this.labelEquipmentId.Location = new System.Drawing.Point(290, 382);
             this.labelEquipmentId.Name = "labelEquipmentId";
@@ -348,7 +348,7 @@
             this.Controls.Add(this.dataGridViewBorrowRequest);
             this.Name = "BorrowRequestManagement";
             this.Text = "Quản lý phiểu mượn thiết bị";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBorrowRequest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.dataGridViewBorrowRequest)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
