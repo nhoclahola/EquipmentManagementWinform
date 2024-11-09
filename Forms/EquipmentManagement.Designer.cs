@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -48,6 +49,10 @@
             this.iconButtonPreviousPage = new FontAwesome.Sharp.IconButton();
             this.labelPageNumber = new System.Windows.Forms.Label();
             this.buttonAddEquipmentToRoom = new System.Windows.Forms.Button();
+            this.iconButtonCancelSearch = new FontAwesome.Sharp.IconButton();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.iconButtonSearch = new FontAwesome.Sharp.IconButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEquipment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEquipment)).BeginInit();
             this.SuspendLayout();
@@ -206,6 +211,7 @@
             this.iconButtonAddEquipment.Name = "iconButtonAddEquipment";
             this.iconButtonAddEquipment.Size = new System.Drawing.Size(75, 66);
             this.iconButtonAddEquipment.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.iconButtonAddEquipment, "Thêm thiết bị");
             this.iconButtonAddEquipment.UseVisualStyleBackColor = true;
             this.iconButtonAddEquipment.Click += new System.EventHandler(this.iconButtonAddEquipment_Click);
             // 
@@ -284,12 +290,55 @@
             this.buttonAddEquipmentToRoom.Visible = false;
             this.buttonAddEquipmentToRoom.Click += new System.EventHandler(this.buttonAddEquipmentToRoom_Click);
             // 
+            // iconButtonCancelSearch
+            // 
+            this.iconButtonCancelSearch.FlatAppearance.BorderSize = 0;
+            this.iconButtonCancelSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCancelSearch.IconChar = FontAwesome.Sharp.IconChar.Ban;
+            this.iconButtonCancelSearch.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonCancelSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCancelSearch.IconSize = 28;
+            this.iconButtonCancelSearch.Location = new System.Drawing.Point(241, 34);
+            this.iconButtonCancelSearch.Name = "iconButtonCancelSearch";
+            this.iconButtonCancelSearch.Size = new System.Drawing.Size(43, 37);
+            this.iconButtonCancelSearch.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.iconButtonCancelSearch, "Huỷ tìm kiếm");
+            this.iconButtonCancelSearch.UseVisualStyleBackColor = true;
+            this.iconButtonCancelSearch.Click += new System.EventHandler(this.iconButtonCancelSearch_Click);
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSearch.Location = new System.Drawing.Point(23, 41);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(199, 22);
+            this.textBoxSearch.TabIndex = 41;
+            // 
+            // iconButtonSearch
+            // 
+            this.iconButtonSearch.FlatAppearance.BorderSize = 0;
+            this.iconButtonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonSearch.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButtonSearch.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(118)))), ((int)(((byte)(176)))));
+            this.iconButtonSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonSearch.IconSize = 28;
+            this.iconButtonSearch.Location = new System.Drawing.Point(243, 34);
+            this.iconButtonSearch.Name = "iconButtonSearch";
+            this.iconButtonSearch.Size = new System.Drawing.Size(43, 37);
+            this.iconButtonSearch.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.iconButtonSearch, "Tìm kiếm thiết bị");
+            this.iconButtonSearch.UseVisualStyleBackColor = true;
+            this.iconButtonSearch.Click += new System.EventHandler(this.iconButtonSearch_Click);
+            // 
             // EquipmentManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1001, 450);
+            this.Controls.Add(this.iconButtonCancelSearch);
+            this.Controls.Add(this.textBoxSearch);
+            this.Controls.Add(this.iconButtonSearch);
             this.Controls.Add(this.buttonAddEquipmentToRoom);
             this.Controls.Add(this.labelTotalPageNumber);
             this.Controls.Add(this.labelSlash);
@@ -335,5 +384,9 @@
         public System.Windows.Forms.Label labelPageNumber;
         public System.Windows.Forms.Label labelTotalPageNumber;
         private System.Windows.Forms.Button buttonAddEquipmentToRoom;
+        private FontAwesome.Sharp.IconButton iconButtonCancelSearch;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private FontAwesome.Sharp.IconButton iconButtonSearch;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

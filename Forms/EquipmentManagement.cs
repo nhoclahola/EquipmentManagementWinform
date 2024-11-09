@@ -35,10 +35,39 @@ namespace EquipmentManagementWinform.Forms
 
         private long currentPageNumber = 1;
         private long currentEquipmentId;
+        private long totalPageNumber;
+        private bool isSearch = false;
 
         public EquipmentManagement()
         {
             InitializeComponent();
+            iconButtonCancelSearch.Visible = false;
+
+            // Tùy chỉnh DataGridView
+            dataGridViewEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEquipment.DefaultCellStyle.BackColor = Color.White;
+            dataGridViewEquipment.DefaultCellStyle.ForeColor = Color.Black;
+            dataGridViewEquipment.DefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Regular);
+            dataGridViewEquipment.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Tùy chỉnh tiêu đề cột
+            dataGridViewEquipment.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+            dataGridViewEquipment.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridViewEquipment.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dataGridViewEquipment.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Căn chỉnh dữ liệu
+            dataGridViewEquipment.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            // Tùy chỉnh đường viền ô
+            dataGridViewEquipment.GridColor = Color.Black;
+            dataGridViewEquipment.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dataGridViewEquipment.RowHeadersVisible = false;  // Ẩn tiêu đề hàng
+
+            // Cài đặt tự động điều chỉnh kích thước cột
+            dataGridViewEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Sự kiện
             dataGridViewEquipment.CellContentClick += DataGridViewEquipments_CellClickDeleteEquipment;
             dataGridViewEquipment.CellClick += DataGridViewEquipments_CellClick;
             LoadDataIntoGridView(currentPageNumber);    // Khởi đầu là 1
@@ -75,7 +104,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = "http://localhost:8080/admin/equipments/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -92,7 +120,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/equipments/all-quantities?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -106,11 +133,41 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
+        public async Task<long> FetchSearchEquipmentCountAsync(string query)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"http://localhost:8080/admin/equipments/search/count?{query}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string countString = await response.Content.ReadAsStringAsync();
+                    return long.Parse(countString);
+                }
+                return 0;
+            }
+        }
+
+        private async Task<List<Equipment>> FetchSearchEquipmentsAsync(string query, long pageNumber)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"http://localhost:8080/admin/equipments/search/all-quantities?query={query}&page={pageNumber}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    List<Equipment> equipments = JsonConvert.DeserializeObject<List<Equipment>>(jsonResponse);
+                    return equipments;
+                }
+                return null;
+            }
+        }
+
         private async void deleteEquipment(long equipmentId)
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.DeleteAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -130,44 +187,38 @@ namespace EquipmentManagementWinform.Forms
 
         public async void LoadDataIntoGridView(long pageNumber)
         {
-            //Check page
-            long equipmentCount = await FetchEquipmentCountAsync();
-            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
-            labelTotalPageNumber.Text = totalPageNumber.ToString();
+            List<Equipment> equipments;
+            if (!isSearch)
+            {
+                //Check page
+                long equipmentCount = await FetchEquipmentCountAsync();
+                totalPageNumber = (equipmentCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
 
-            // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
-            dataGridViewEquipment.Columns.Clear();
-            dataGridViewEquipment.DataSource = null;
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewEquipment.Columns.Clear();
+                dataGridViewEquipment.DataSource = null;
 
-            List<Equipment> equipments = await FetchEquipmentsAsync(pageNumber);
+                equipments = await FetchEquipmentsAsync(pageNumber);
+            }
+            else
+            {
+                //Check page
+                long equipmentCount = await FetchSearchEquipmentCountAsync(textBoxSearch.Text.Trim());
+                totalPageNumber = (equipmentCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewEquipment.Columns.Clear();
+                dataGridViewEquipment.DataSource = null;
+
+                equipments = await FetchSearchEquipmentsAsync(textBoxSearch.Text.Trim(), pageNumber);
+            }
+
             if (equipments != null)
             {
                 // Đặt dữ liệu vào DataGridView
                 dataGridViewEquipment.DataSource = equipments;
-
-                // Tùy chỉnh DataGridView
-                dataGridViewEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridViewEquipment.DefaultCellStyle.BackColor = Color.White;
-                dataGridViewEquipment.DefaultCellStyle.ForeColor = Color.Black;
-                dataGridViewEquipment.DefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Regular);
-                dataGridViewEquipment.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-
-                // Tùy chỉnh tiêu đề cột
-                dataGridViewEquipment.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
-                dataGridViewEquipment.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dataGridViewEquipment.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
-                dataGridViewEquipment.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                // Căn chỉnh dữ liệu
-                dataGridViewEquipment.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-                // Tùy chỉnh đường viền ô
-                dataGridViewEquipment.GridColor = Color.Black;
-                dataGridViewEquipment.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-                dataGridViewEquipment.RowHeadersVisible = false;  // Ẩn tiêu đề hàng
-
-                // Cài đặt tự động điều chỉnh kích thước cột
-                dataGridViewEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 // Tạo cột "Hành động" với nút "Xoá"
 
@@ -292,12 +343,11 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonNextPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long equipmentCount = await FetchEquipmentCountAsync();
-            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber < totalPageNumber)
             {
                 currentPageNumber += 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
                 LoadDataIntoGridView(currentPageNumber);
             }
         }
@@ -305,12 +355,11 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonPreviousPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long equipmentCount = await FetchEquipmentCountAsync();
-            long totalPageNumber = (equipmentCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber > 1)
             {
                 currentPageNumber -= 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
                 LoadDataIntoGridView(currentPageNumber);
             }
         }
@@ -319,6 +368,27 @@ namespace EquipmentManagementWinform.Forms
         {
             AddEquipmentToRoom addEquipmentToRoomForm = new AddEquipmentToRoom(this, currentEquipmentId);
             addEquipmentToRoomForm.ShowDialog();
+        }
+
+        private async void iconButtonSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBoxSearch.Text))
+            {
+                isSearch = true;
+                currentPageNumber = 1;
+                iconButtonSearch.Visible = false;
+                iconButtonCancelSearch.Visible = true;
+                LoadDataIntoGridView(currentPageNumber);
+            }
+        }
+
+        private async void iconButtonCancelSearch_Click(object sender, EventArgs e)
+        {
+            isSearch = false;
+            currentPageNumber = 1;
+            iconButtonSearch.Visible = true;
+            iconButtonCancelSearch.Visible = false;
+            LoadDataIntoGridView(currentPageNumber);
         }
     }
 }

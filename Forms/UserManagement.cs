@@ -72,7 +72,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = "http://localhost:8080/admin/users/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -89,7 +88,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/users?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -108,7 +106,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/users/search/count?query={query}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -125,7 +122,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/users/search?query={query}&page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -144,7 +140,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/users/{userId}";
                 HttpResponseMessage response = await client.DeleteAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -178,13 +173,13 @@ namespace EquipmentManagementWinform.Forms
             else
             {
                 //Check page
-                long userCount = await FetchSearchUsersCountAsync(textBoxSearch.Text);
+                long userCount = await FetchSearchUsersCountAsync(textBoxSearch.Text.Trim());
                 totalPageNumber = (userCount - 1) / 10 + 1;
                 labelTotalPageNumber.Text = totalPageNumber.ToString();
                 // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
                 dataGridViewUsers.Columns.Clear();
                 dataGridViewUsers.DataSource = null;
-                users = await FetchSearchUsersAsync(textBoxSearch.Text, pageNumber);
+                users = await FetchSearchUsersAsync(textBoxSearch.Text.Trim(), pageNumber);
             }
             if (users != null)
             {

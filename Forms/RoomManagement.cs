@@ -43,12 +43,15 @@ namespace EquipmentManagementWinform.Forms
         private long equipmentId;
 
         public long currentPageNumber = 1;
+        private long totalPageNumber;
         private Room currentRoom;
         private List<RoomEquipments> nullRoomEquipmentsList = new List<RoomEquipments>();
+        private bool isSearch = false;
 
         public RoomManagement()
         {
             InitializeComponent();
+            iconButtonCancelSearch.Visible = false;
 
             // Tùy chỉnh DataGridView
             dataGridViewRooms.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -126,7 +129,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = "http://localhost:8080/admin/rooms/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -143,13 +145,43 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/rooms?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    // Deserialize JSON thành danh sách User
+                    List<Room> rooms = JsonConvert.DeserializeObject<List<Room>>(jsonResponse);
+                    return rooms;
+                }
+                return null;
+            }
+        }
+
+        public async Task<long> FetchSearchRoomCountAsync(string query)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"http://localhost:8080/admin/rooms/search/count?query={query}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string countString = await response.Content.ReadAsStringAsync();
+                    return long.Parse(countString);
+                }
+                return 0;
+            }
+        }
+
+        private async Task<List<Room>> FetchSearchRoomsAsync(string query, long pageNumber)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Thay endpoint API của bạn ở đây
+                string apiUrl = $"http://localhost:8080/admin/rooms/search?query={query}&page={pageNumber}";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
                     List<Room> rooms = JsonConvert.DeserializeObject<List<Room>>(jsonResponse);
                     return rooms;
                 }
@@ -161,7 +193,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -178,7 +209,6 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                // Thay endpoint API của bạn ở đây
                 string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
@@ -194,16 +224,30 @@ namespace EquipmentManagementWinform.Forms
 
         public async void LoadDataIntoGridViewRooms(long pageNumber)
         {
-            //Check page
-            long roomCount = await FetchRoomCountAsync();
-            long totalPageNumber = (roomCount - 1) / 10 + 1;
-            labelTotalPageNumber.Text = totalPageNumber.ToString();
+            List<Room> rooms;
+            if (!isSearch)
+            {
+                //Check page
+                long roomCount = await FetchRoomCountAsync();
+                totalPageNumber = (roomCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewRooms.Columns.Clear();
+                dataGridViewRooms.DataSource = null;
+                rooms = await FetchRoomsAsync(pageNumber);
+            }
+            else
+            {
+                //Check page
+                long roomCount = await FetchSearchRoomCountAsync(textBoxSearch.Text.Trim());
+                totalPageNumber = (roomCount - 1) / 10 + 1;
+                labelTotalPageNumber.Text = totalPageNumber.ToString();
+                // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
+                dataGridViewRooms.Columns.Clear();
+                dataGridViewRooms.DataSource = null;
+                rooms = await FetchSearchRoomsAsync(textBoxSearch.Text.Trim(), pageNumber);
+            }
 
-            // Xoá toàn bộ cột và dữ liệu hiện tại trong DataGridView
-            dataGridViewRooms.Columns.Clear();
-            dataGridViewRooms.DataSource = null;
-
-            List<Room> rooms = await FetchRoomsAsync(pageNumber);
             if (rooms != null)
             {
                 // Đặt dữ liệu vào DataGridView
@@ -325,12 +369,11 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonNextPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long roomCount = await FetchRoomCountAsync();
-            long totalPageNumber = (roomCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber < totalPageNumber)
             {
                 currentPageNumber += 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
                 LoadDataIntoGridViewRooms(currentPageNumber);
             }
         }
@@ -338,12 +381,11 @@ namespace EquipmentManagementWinform.Forms
         private async void iconButtonPreviousPage_Click(object sender, EventArgs e)
         {
             //Check page
-            long roomCount = await FetchRoomCountAsync();
-            long totalPageNumber = (roomCount - 1) / 10 + 1;
             currentPageNumber = long.Parse(labelPageNumber.Text);
             if (currentPageNumber > 1)
             {
                 currentPageNumber -= 1;
+                labelPageNumber.Text = currentPageNumber.ToString();
                 LoadDataIntoGridViewRooms(currentPageNumber);
             }
         }
@@ -374,6 +416,27 @@ namespace EquipmentManagementWinform.Forms
                     MessageBox.Show($"Có lỗi xảy ra khi sửa phòng {room.RoomName}: {error}");
                 }
             }
+        }
+
+        private async void iconButtonSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBoxSearch.Text))
+            {
+                isSearch = true;
+                currentPageNumber = 1;
+                iconButtonSearch.Visible = false;
+                iconButtonCancelSearch.Visible = true;
+                LoadDataIntoGridViewRooms(currentPageNumber);
+            }
+        }
+
+        private async void iconButtonCancelSearch_Click(object sender, EventArgs e)
+        {
+            isSearch = false;
+            currentPageNumber = 1;
+            iconButtonSearch.Visible = true;
+            iconButtonCancelSearch.Visible = false;
+            LoadDataIntoGridViewRooms(currentPageNumber);
         }
     }
 }

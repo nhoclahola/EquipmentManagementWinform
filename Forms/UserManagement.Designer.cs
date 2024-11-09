@@ -357,6 +357,7 @@
             this.iconButtonAddUser.Name = "iconButtonAddUser";
             this.iconButtonAddUser.Size = new System.Drawing.Size(75, 66);
             this.iconButtonAddUser.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.iconButtonAddUser, "Thêm người dùng mới");
             this.iconButtonAddUser.UseVisualStyleBackColor = true;
             this.iconButtonAddUser.Click += new System.EventHandler(this.iconButtonAddUser_Click);
             // 
