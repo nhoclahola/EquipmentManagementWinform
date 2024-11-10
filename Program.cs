@@ -14,6 +14,9 @@ namespace EquipmentManagementWinform
         [STAThread]
         static void Main()
         {
+            // Đọc cấu hình trước khi khởi chạy form chính
+            ConfigManager.LoadSettings();
+            Console.WriteLine(ConfigManager.BaseUrl);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

@@ -53,13 +53,18 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.iconButtonSearch = new FontAwesome.Sharp.IconButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBoxBrandName = new System.Windows.Forms.TextBox();
+            this.labelBrandName = new System.Windows.Forms.Label();
+            this.labelDescription = new System.Windows.Forms.Label();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.buttonEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEquipment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEquipment)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxEquipment
             // 
-            this.pictureBoxEquipment.Location = new System.Drawing.Point(653, 36);
+            this.pictureBoxEquipment.Location = new System.Drawing.Point(655, 8);
             this.pictureBoxEquipment.Name = "pictureBoxEquipment";
             this.pictureBoxEquipment.Size = new System.Drawing.Size(242, 155);
             this.pictureBoxEquipment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -89,6 +94,7 @@
             this.dataGridViewEquipment.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridViewEquipment.Location = new System.Drawing.Point(23, 93);
             this.dataGridViewEquipment.Name = "dataGridViewEquipment";
+            this.dataGridViewEquipment.ReadOnly = true;
             this.dataGridViewEquipment.RowHeadersVisible = false;
             this.dataGridViewEquipment.Size = new System.Drawing.Size(513, 250);
             this.dataGridViewEquipment.TabIndex = 2;
@@ -105,7 +111,7 @@
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEquipment.ThemeStyle.HeaderStyle.Height = 23;
-            this.dataGridViewEquipment.ThemeStyle.ReadOnly = false;
+            this.dataGridViewEquipment.ThemeStyle.ReadOnly = true;
             this.dataGridViewEquipment.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridViewEquipment.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewEquipment.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -120,7 +126,7 @@
             this.labelEquipmentName.BackColor = System.Drawing.Color.Transparent;
             this.labelEquipmentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEquipmentName.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelEquipmentName.Location = new System.Drawing.Point(591, 225);
+            this.labelEquipmentName.Location = new System.Drawing.Point(593, 186);
             this.labelEquipmentName.Name = "labelEquipmentName";
             this.labelEquipmentName.Size = new System.Drawing.Size(87, 15);
             this.labelEquipmentName.TabIndex = 11;
@@ -132,7 +138,7 @@
             this.labelTotalQuantity.BackColor = System.Drawing.Color.Transparent;
             this.labelTotalQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTotalQuantity.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelTotalQuantity.Location = new System.Drawing.Point(591, 260);
+            this.labelTotalQuantity.Location = new System.Drawing.Point(593, 246);
             this.labelTotalQuantity.Name = "labelTotalQuantity";
             this.labelTotalQuantity.Size = new System.Drawing.Size(157, 15);
             this.labelTotalQuantity.TabIndex = 12;
@@ -144,7 +150,7 @@
             this.labelRemainQuantity.BackColor = System.Drawing.Color.Transparent;
             this.labelRemainQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRemainQuantity.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRemainQuantity.Location = new System.Drawing.Point(591, 294);
+            this.labelRemainQuantity.Location = new System.Drawing.Point(593, 280);
             this.labelRemainQuantity.Name = "labelRemainQuantity";
             this.labelRemainQuantity.Size = new System.Drawing.Size(115, 15);
             this.labelRemainQuantity.TabIndex = 13;
@@ -153,7 +159,7 @@
             // textBoxEquipmentName
             // 
             this.textBoxEquipmentName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxEquipmentName.Location = new System.Drawing.Point(768, 222);
+            this.textBoxEquipmentName.Location = new System.Drawing.Point(770, 183);
             this.textBoxEquipmentName.Name = "textBoxEquipmentName";
             this.textBoxEquipmentName.Size = new System.Drawing.Size(177, 21);
             this.textBoxEquipmentName.TabIndex = 15;
@@ -161,7 +167,7 @@
             // textBoxTotalQuantity
             // 
             this.textBoxTotalQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTotalQuantity.Location = new System.Drawing.Point(768, 257);
+            this.textBoxTotalQuantity.Location = new System.Drawing.Point(770, 243);
             this.textBoxTotalQuantity.Name = "textBoxTotalQuantity";
             this.textBoxTotalQuantity.ReadOnly = true;
             this.textBoxTotalQuantity.Size = new System.Drawing.Size(33, 21);
@@ -170,7 +176,7 @@
             // textBoxRemainQuantity
             // 
             this.textBoxRemainQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRemainQuantity.Location = new System.Drawing.Point(768, 294);
+            this.textBoxRemainQuantity.Location = new System.Drawing.Point(770, 280);
             this.textBoxRemainQuantity.Name = "textBoxRemainQuantity";
             this.textBoxRemainQuantity.ReadOnly = true;
             this.textBoxRemainQuantity.Size = new System.Drawing.Size(33, 21);
@@ -182,7 +188,7 @@
             this.labelRooms1.BackColor = System.Drawing.Color.Transparent;
             this.labelRooms1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRooms1.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRooms1.Location = new System.Drawing.Point(591, 328);
+            this.labelRooms1.Location = new System.Drawing.Point(593, 314);
             this.labelRooms1.Name = "labelRooms1";
             this.labelRooms1.Size = new System.Drawing.Size(118, 15);
             this.labelRooms1.TabIndex = 18;
@@ -194,7 +200,7 @@
             this.labelRooms2.BackColor = System.Drawing.Color.Transparent;
             this.labelRooms2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRooms2.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelRooms2.Location = new System.Drawing.Point(765, 328);
+            this.labelRooms2.Location = new System.Drawing.Point(767, 314);
             this.labelRooms2.Name = "labelRooms2";
             this.labelRooms2.Size = new System.Drawing.Size(16, 15);
             this.labelRooms2.TabIndex = 19;
@@ -281,11 +287,11 @@
             // buttonAddEquipmentToRoom
             // 
             this.buttonAddEquipmentToRoom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEquipmentToRoom.Location = new System.Drawing.Point(594, 365);
+            this.buttonAddEquipmentToRoom.Location = new System.Drawing.Point(382, 354);
             this.buttonAddEquipmentToRoom.Name = "buttonAddEquipmentToRoom";
             this.buttonAddEquipmentToRoom.Size = new System.Drawing.Size(154, 58);
             this.buttonAddEquipmentToRoom.TabIndex = 39;
-            this.buttonAddEquipmentToRoom.Text = "Thêm thiết bị này vào phòng";
+            this.buttonAddEquipmentToRoom.Text = "Phân phối thiết bị";
             this.buttonAddEquipmentToRoom.UseVisualStyleBackColor = true;
             this.buttonAddEquipmentToRoom.Visible = false;
             this.buttonAddEquipmentToRoom.Click += new System.EventHandler(this.buttonAddEquipmentToRoom_Click);
@@ -330,12 +336,71 @@
             this.iconButtonSearch.UseVisualStyleBackColor = true;
             this.iconButtonSearch.Click += new System.EventHandler(this.iconButtonSearch_Click);
             // 
+            // textBoxBrandName
+            // 
+            this.textBoxBrandName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBrandName.Location = new System.Drawing.Point(770, 214);
+            this.textBoxBrandName.Name = "textBoxBrandName";
+            this.textBoxBrandName.Size = new System.Drawing.Size(177, 21);
+            this.textBoxBrandName.TabIndex = 44;
+            // 
+            // labelBrandName
+            // 
+            this.labelBrandName.AutoSize = true;
+            this.labelBrandName.BackColor = System.Drawing.Color.Transparent;
+            this.labelBrandName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBrandName.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelBrandName.Location = new System.Drawing.Point(593, 217);
+            this.labelBrandName.Name = "labelBrandName";
+            this.labelBrandName.Size = new System.Drawing.Size(79, 15);
+            this.labelBrandName.TabIndex = 43;
+            this.labelBrandName.Text = "Tên hãng:  ";
+            // 
+            // labelDescription
+            // 
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.BackColor = System.Drawing.Color.Transparent;
+            this.labelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescription.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelDescription.Location = new System.Drawing.Point(593, 347);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(55, 15);
+            this.labelDescription.TabIndex = 45;
+            this.labelDescription.Text = "Mô tả:  ";
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxDescription.Location = new System.Drawing.Point(770, 337);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxDescription.Size = new System.Drawing.Size(177, 47);
+            this.textBoxDescription.TabIndex = 46;
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEdit.Location = new System.Drawing.Point(710, 406);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(110, 32);
+            this.buttonEdit.TabIndex = 47;
+            this.buttonEdit.Text = "Sửa";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Visible = false;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            // 
             // EquipmentManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1001, 450);
+            this.Controls.Add(this.buttonEdit);
+            this.Controls.Add(this.textBoxDescription);
+            this.Controls.Add(this.labelDescription);
+            this.Controls.Add(this.textBoxBrandName);
+            this.Controls.Add(this.labelBrandName);
             this.Controls.Add(this.iconButtonCancelSearch);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.iconButtonSearch);
@@ -388,5 +453,10 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private FontAwesome.Sharp.IconButton iconButtonSearch;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox textBoxBrandName;
+        private System.Windows.Forms.Label labelBrandName;
+        private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.Button buttonEdit;
     }
 }

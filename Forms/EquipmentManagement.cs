@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,6 +28,8 @@ namespace EquipmentManagementWinform.Forms
         {
             public int EquipmentId { get; set; }
             public string EquipmentName { get; set; }
+            public string BrandName { get; set; }
+            public string Description { get; set; }
             public string ImageUrl { get; set; }
             public int? TotalQuantity { get; set; }
             public int? RemainQuantity { get; set; }
@@ -42,6 +45,7 @@ namespace EquipmentManagementWinform.Forms
         {
             InitializeComponent();
             iconButtonCancelSearch.Visible = false;
+            buttonEdit.Visible = false;
 
             // Tùy chỉnh DataGridView
             dataGridViewEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -70,6 +74,7 @@ namespace EquipmentManagementWinform.Forms
             // Sự kiện
             dataGridViewEquipment.CellContentClick += DataGridViewEquipments_CellClickDeleteEquipment;
             dataGridViewEquipment.CellClick += DataGridViewEquipments_CellClick;
+            dataGridViewEquipment.CellFormatting += dataGridViewEquipment_CellFormatting;
             LoadDataIntoGridView(currentPageNumber);    // Khởi đầu là 1
 
         }
@@ -104,7 +109,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = "http://localhost:8080/admin/equipments/count";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -120,7 +125,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/equipments/all-quantities?page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/all-quantities?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -137,7 +142,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/equipments/search/count?{query}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/search/count?{query}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -152,7 +157,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/equipments/search/all-quantities?query={query}&page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/search/all-quantities?query={query}&page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -164,11 +169,11 @@ namespace EquipmentManagementWinform.Forms
             }
         }
 
-        private async void deleteEquipment(long equipmentId)
+        private async void DeleteEquipment(long equipmentId)
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/equipments/{equipmentId}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.DeleteAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -181,7 +186,7 @@ namespace EquipmentManagementWinform.Forms
                     MessageBox.Show($"Đã xoá thiết bị có ID: {equipmentId}");
                 }
                 else
-                    MessageBox.Show($"Có lỗi xảy ra khi xoá người dùng với ID: {equipmentId}");
+                    MessageBox.Show($"Có lỗi xảy ra khi xoá thiết bị có ID: {equipmentId}");
             }
         }
 
@@ -232,17 +237,27 @@ namespace EquipmentManagementWinform.Forms
                 // Đổi tên các cột trong DataGridView
                 dataGridViewEquipment.Columns["EquipmentId"].HeaderText = "ID";
                 dataGridViewEquipment.Columns["EquipmentName"].HeaderText = "Tên thiết bị";
+                dataGridViewEquipment.Columns["BrandName"].HeaderText = "Tên hãng";
+
                 dataGridViewEquipment.Columns["TotalQuantity"].HeaderText = "Tổng số";
                 dataGridViewEquipment.Columns["RemainQuantity"].HeaderText = "Còn lại";
 
                 // Ẩn các cột không cần thiết
                 dataGridViewEquipment.Columns["ImageUrl"].Visible = false;
+                dataGridViewEquipment.Columns["Description"].Visible = false;
 
                 dataGridViewEquipment.Columns["EquipmentId"].ReadOnly = true;
                 dataGridViewEquipment.Columns["EquipmentName"].ReadOnly = true;
                 dataGridViewEquipment.Columns["TotalQuantity"].ReadOnly = true;
                 dataGridViewEquipment.Columns["RemainQuantity"].ReadOnly = true;
                 dataGridViewEquipment.Columns["ImageUrl"].ReadOnly = true;
+
+                // Cấu hình cho cột "BrandName" và "EquipmentName"
+                dataGridViewEquipment.Columns["BrandName"].Width = 100; // Đặt chiều rộng cột BrandName
+                dataGridViewEquipment.Columns["EquipmentName"].Width = 100; // Đặt chiều rộng cột EquipmentName
+
+                dataGridViewEquipment.Columns["BrandName"].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+                dataGridViewEquipment.Columns["EquipmentName"].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
                 // Không cho phép thay đổi kích thước cột
                 dataGridViewEquipment.AllowUserToResizeColumns = false;
@@ -256,8 +271,11 @@ namespace EquipmentManagementWinform.Forms
                 textBoxEquipmentName.Text = "";
                 textBoxTotalQuantity.Text = "";
                 textBoxRemainQuantity.Text = "";
+                textBoxBrandName.Text = "";
+                textBoxDescription.Text = "";
                 pictureBoxEquipment.Image = null;
                 buttonAddEquipmentToRoom.Visible = false;
+                buttonEdit.Visible = false;
             }
             else
             {
@@ -298,13 +316,19 @@ namespace EquipmentManagementWinform.Forms
             {
                 // Lấy giá trị của cột "Username" trong dòng được chọn
                 Equipment selectedEquipment = ((List<Equipment>) dataGridViewEquipment.DataSource)[e.RowIndex];
-                string imageUrl = "http://localhost:8080/" + selectedEquipment.ImageUrl;
-                Equipment equipmentWithRooms = await GetEquipmentFromApiAsync("http://localhost:8080/admin/equipments/" + selectedEquipment.EquipmentId);
+                string imageUrl = $"{ConfigManager.BaseUrl}/" + selectedEquipment.ImageUrl;
+                Equipment equipmentWithRooms = await GetEquipmentFromApiAsync($"{ConfigManager.BaseUrl}/admin/equipments/" + selectedEquipment.EquipmentId);
                 string rooms = "";
                 if (equipmentWithRooms.EquipmentId > 0)
+                {
                     buttonAddEquipmentToRoom.Visible = true;
+                    buttonEdit.Visible = true;
+                }    
                 else
+                {
                     buttonAddEquipmentToRoom.Visible = false;
+                    buttonEdit.Visible = false;
+                }    
                 if (equipmentWithRooms.Rooms != null && equipmentWithRooms.Rooms.Count > 0)
                 {
                     // Sử dụng LINQ để lấy tên các phòng và nối thành một chuỗi
@@ -313,6 +337,8 @@ namespace EquipmentManagementWinform.Forms
                 textBoxEquipmentName.Text = equipmentWithRooms.EquipmentName;
                 textBoxTotalQuantity.Text = selectedEquipment.TotalQuantity.ToString();
                 textBoxRemainQuantity.Text = selectedEquipment.RemainQuantity.ToString();
+                textBoxBrandName.Text = selectedEquipment.BrandName;
+                textBoxDescription.Text = selectedEquipment.Description;
                 labelRooms2.Text = rooms;
                 this.currentEquipmentId = equipmentWithRooms.EquipmentId;
                 LoadImageFromUrl(imageUrl);
@@ -327,9 +353,22 @@ namespace EquipmentManagementWinform.Forms
                 if (e.ColumnIndex == dataGridViewEquipment.Columns["Delete"].Index && e.RowIndex >= 0)
                 {
                     string equipmentId = dataGridViewEquipment.Rows[e.RowIndex].Cells["EquipmentId"].Value.ToString();
-                    DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá thiết bị với ID: {equipmentId}?", "Xoá người dùng", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá thiết bị với ID: {equipmentId}? Tất cả những thiết bị đã được phân phối đến các phòng cũng như các phiếu đăng ký liên quan đến thiết bị này sẽ bị xoá!", "Xoá thiết bị", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
-                        deleteEquipment(long.Parse(equipmentId));
+                        DeleteEquipment(long.Parse(equipmentId));
+                }
+            }
+        }
+
+        private void dataGridViewEquipment_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewEquipment.Columns["BrandName"].Index ||
+                e.ColumnIndex == dataGridViewEquipment.Columns["EquipmentName"].Index)
+            {
+                string text = e.Value as string;
+                if (text != null && text.Length > 20) // Kiểm tra độ dài chuỗi, bạn có thể thay 20 bằng giới hạn mong muốn
+                {
+                    e.Value = text.Substring(0, 17) + "...";
                 }
             }
         }
@@ -389,6 +428,71 @@ namespace EquipmentManagementWinform.Forms
             iconButtonSearch.Visible = true;
             iconButtonCancelSearch.Visible = false;
             LoadDataIntoGridView(currentPageNumber);
+        }
+
+        private async Task<bool> EditEquipmentAsync(string url, string equipmentName, string brandName, string description, string imagePath)
+        {
+            using (HttpClient client = new HttpClient())
+            using (MultipartFormDataContent form = new MultipartFormDataContent())
+            {
+                try
+                {
+                    // Thêm equipmentName vào form-data
+                    form.Add(new StringContent(equipmentName), "equipmentName");
+                    form.Add(new StringContent(brandName), "brandName");
+                    form.Add(new StringContent(description), "description");
+
+                    // Thêm image vào form-data (file ảnh)
+                    if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+                    {
+                        byte[] imageBytes = File.ReadAllBytes(imagePath);
+                        ByteArrayContent imageContent = new ByteArrayContent(imageBytes);
+                        imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        form.Add(imageContent, "image", Path.GetFileName(imagePath));
+                    }
+                    // Gửi yêu cầu POST đến API
+                    HttpResponseMessage response = await client.PutAsync(url, form);
+
+                    // Kiểm tra nếu yêu cầu thành công
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Sửa thiết bị thành công!");
+                        return true;
+                    }
+                    else
+                    {
+                        string error = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Lỗi khi sửa thiết bị: {error}");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        private async void buttonEdit_Click(object sender, EventArgs e)
+        {
+            string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments/{currentEquipmentId}";
+            string equipmentName = textBoxEquipmentName.Text;
+            string brandName = textBoxBrandName.Text;
+            string description = textBoxDescription.Text;
+            string selectedImagePath = null;
+
+            if (string.IsNullOrEmpty(equipmentName))
+            {
+                MessageBox.Show("Vui lòng nhập tên thiết bị");
+                return;
+            }
+
+            bool isSuccess = await EditEquipmentAsync(apiUrl, equipmentName, brandName, description, selectedImagePath);
+            if (isSuccess)
+            {
+                LoadDataIntoGridView(1);
+            }
         }
     }
 }

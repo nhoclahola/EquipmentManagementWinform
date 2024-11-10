@@ -53,7 +53,7 @@ namespace EquipmentManagementWinform.Forms
             using (var client = new HttpClient())
             {
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("http://localhost:8080/admin/users", content);
+                var response = await client.PostAsync($"{ConfigManager.BaseUrl}/admin/users", content);
                 Console.WriteLine(response.StatusCode);
                 if (response.IsSuccessStatusCode)
                 {

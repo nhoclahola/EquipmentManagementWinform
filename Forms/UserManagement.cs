@@ -29,6 +29,7 @@ namespace EquipmentManagementWinform.Forms
             public string Password { get; set; }
         }
 
+        private User currentUser;
         private long currentPageNumber = 1;
         private long totalPageNumber;
         private bool isSearch = false;
@@ -37,6 +38,9 @@ namespace EquipmentManagementWinform.Forms
         {
             InitializeComponent();
             iconButtonCancelSearch.Visible = false;
+            buttonEdit.Visible = false;
+            buttonRestore.Visible = false;
+
             // Tùy chỉnh DataGridView
             dataGridViewUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewUsers.DefaultCellStyle.BackColor = Color.White;
@@ -72,7 +76,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = "http://localhost:8080/admin/users/count";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/users/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -88,7 +92,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/users?page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/users?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -106,7 +110,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/users/search/count?query={query}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/users/search/count?query={query}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -122,7 +126,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/users/search?query={query}&page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/users/search?query={query}&page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -140,7 +144,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/users/{userId}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/users/{userId}";
                 HttpResponseMessage response = await client.DeleteAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -232,6 +236,17 @@ namespace EquipmentManagementWinform.Forms
 
                 labelPageNumber.Text = pageNumber.ToString();
                 labelTotalPageNumber.Text = totalPageNumber.ToString();
+
+                // Reset
+                textBoxFullName.Text = "";
+                textBoxUsername.Text = "";
+                textBoxPhoneNumber.Text = "";
+                textBoxRole.Text = "";
+                comboBoxGender.Text = "";
+                textBoxPassword.Text = "";
+                currentUser = null;
+                buttonEdit.Visible = false;
+                buttonRestore.Visible = false;
             }
             else
             {
@@ -246,7 +261,7 @@ namespace EquipmentManagementWinform.Forms
             {
                 // Lấy giá trị của cột "Username" trong dòng được chọn
                 User selectedUser = ((List<User>) dataGridViewUsers.DataSource)[e.RowIndex];
-
+                currentUser = selectedUser;
                 // Đặt giá trị của các control
                 textBoxUsername.Text = selectedUser.Username;
                 textBoxFullName.Text = selectedUser.FullName;
@@ -257,7 +272,7 @@ namespace EquipmentManagementWinform.Forms
                 else if (selectedUser.Gender == false)
                     comboBoxGender.Text = "Nữ";
                 textBoxPhoneNumber.Text = selectedUser.PhoneNumber;
-                comboBoxRole.Text = selectedUser.Role == "USER" ? "Trợ giảng" : "Quản lý";
+                textBoxRole.Text = selectedUser.Role == "USER" ? "Trợ giảng" : "Quản lý";
                 textBoxPassword.Text = selectedUser.Password;
 
                 if (selectedUser.Dob != null)
@@ -269,6 +284,8 @@ namespace EquipmentManagementWinform.Forms
                 {
                     dateTimePickerDob.CustomFormat = " ";
                 }
+                buttonEdit.Visible = true;
+                buttonRestore.Visible = true;
             }
         }
 
@@ -288,7 +305,27 @@ namespace EquipmentManagementWinform.Forms
 
         private void buttonRestore_Click(object sender, EventArgs e)
         {
+            textBoxUsername.Text = currentUser.Username;
+            textBoxFullName.Text = currentUser.FullName;
+            if (currentUser.Gender == null)
+                comboBoxGender.Text = "Khác";
+            else if (currentUser.Gender == true)
+                comboBoxGender.Text = "Nam";
+            else if (currentUser.Gender == false)
+                comboBoxGender.Text = "Nữ";
+            textBoxPhoneNumber.Text = currentUser.PhoneNumber;
+            textBoxRole.Text = currentUser.Role == "USER" ? "Trợ giảng" : "Quản lý";
+            textBoxPassword.Text = currentUser.Password;
 
+            if (currentUser.Dob != null)
+            {
+                dateTimePickerDob.Value = currentUser.Dob.Value;
+                dateTimePickerDob.CustomFormat = "dd/MM/yyyy";
+            }
+            else
+            {
+                dateTimePickerDob.CustomFormat = " ";
+            }
         }
 
         private void iconButtonAddUser_Click(object sender, EventArgs e)
@@ -340,6 +377,40 @@ namespace EquipmentManagementWinform.Forms
             iconButtonSearch.Visible = true;
             iconButtonCancelSearch.Visible = false;
             LoadDataIntoGridView(currentPageNumber);
+        }
+
+        private async void buttonEdit_Click(object sender, EventArgs e)
+        {
+            string dob = !string.IsNullOrWhiteSpace(dateTimePickerDob.Text) ? dateTimePickerDob.Text : null;
+            if (dob != null)
+                dob = DateTime.ParseExact(dob, "dd/MM/yyyy", null).ToString("yyyy-MM-dd");
+            using (var client = new HttpClient())
+            {
+                var newUser = new
+                {
+                    fullName = textBoxFullName.Text,
+                    gender = comboBoxGender.Text.Equals("Nam") ? true : comboBoxGender.Text.Equals("Nữ") ? false : (bool?) null,
+                    phoneNumber = textBoxPhoneNumber.Text,
+                    dob = dob,
+                    password = textBoxPassword.Text
+                };
+                // Chuyển object thành JSON
+                string json = JsonConvert.SerializeObject(newUser);
+                Console.WriteLine(json);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/users/{currentUser.UserId}", content);
+                Console.WriteLine(response.StatusCode);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Đã sửa thông tin người dùng có ID {currentUser.UserId}");
+                    LoadDataIntoGridView(currentPageNumber);
+                }
+                else
+                {
+                    string error = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Có lỗi khi sửa thông tin người dùng có ID {currentUser.UserId}: {error}");
+                }
+            }
         }
     }
 }

@@ -122,6 +122,7 @@ namespace EquipmentManagementWinform.Forms
 
 
             dataGridViewRooms.CellClick += DataGridViewRoomEquipment_CellClick;
+            dataGridViewRooms.CellContentClick += DataGridViewRooms_CellClickDeleteRoom;
             LoadDataIntoGridViewRooms(currentPageNumber);    // Khởi đầu là 1
         }
 
@@ -129,7 +130,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = "http://localhost:8080/admin/rooms/count";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -145,7 +146,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/rooms?page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -161,7 +162,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/rooms/search/count?query={query}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/search/count?query={query}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -177,7 +178,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/rooms/search?query={query}&page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/search?query={query}&page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -193,7 +194,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}/equipments";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -209,7 +210,7 @@ namespace EquipmentManagementWinform.Forms
         {
             using (HttpClient client = new HttpClient())
             {
-                string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments/{equipmentId}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -219,6 +220,27 @@ namespace EquipmentManagementWinform.Forms
                 }
                 Console.WriteLine(response.StatusCode);
                 return null;
+            }
+        }
+
+        private async void DeleteRoom(long roomId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}";
+                HttpResponseMessage response = await client.DeleteAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Trang mới nhất
+                    long roomCount = await FetchRoomCountAsync();
+                    long totalPageNumber = (roomCount - 1) / 10 + 1;
+                    LoadDataIntoGridViewRooms(currentPageNumber);
+                    labelPageNumber.Text = currentPageNumber.ToString();
+                    labelTotalPageNumber.Text = totalPageNumber.ToString();
+                    MessageBox.Show($"Đã xoá phòng có ID: {roomId}");
+                }
+                else
+                    MessageBox.Show($"Có lỗi xảy ra khi xoá phòng có ID: {roomId}");
             }
         }
 
@@ -252,6 +274,14 @@ namespace EquipmentManagementWinform.Forms
             {
                 // Đặt dữ liệu vào DataGridView
                 dataGridViewRooms.DataSource = rooms;
+
+                // Tạo cột "Hành động" với nút "Xoá"
+                DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
+                deleteColumn.Name = "Delete";
+                deleteColumn.HeaderText = "Xoá";
+                deleteColumn.Text = "Xoá";
+                deleteColumn.UseColumnTextForButtonValue = true;
+                dataGridViewRooms.Columns.Add(deleteColumn);
 
                 // Đổi tên các cột trong DataGridView
                 dataGridViewRooms.Columns["RoomId"].HeaderText = "ID";
@@ -314,6 +344,21 @@ namespace EquipmentManagementWinform.Forms
                     //buttonAdd.Visible = true;
                     //buttonUpdate.Visible = false;
                     //buttonDelete.Visible = true;
+                }
+            }
+        }
+
+        // Phương thức xoá
+        private void DataGridViewRooms_CellClickDeleteRoom(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewRooms.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == dataGridViewRooms.Columns["Delete"].Index && e.RowIndex >= 0)
+                {
+                    string roomId = dataGridViewRooms.Rows[e.RowIndex].Cells["RoomId"].Value.ToString();
+                    DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá phòng với ID: {roomId}? Tất cả những thiết bị đã được phân phối đến các phòng này cũng như các phiếu đăng ký liên quan đến phòng này sẽ bị xoá!", "Xoá thiết bị", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                        DeleteRoom(long.Parse(roomId));
                 }
             }
         }
@@ -403,7 +448,7 @@ namespace EquipmentManagementWinform.Forms
                 string json = JsonConvert.SerializeObject(newRoom);
                 Console.WriteLine(json);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"http://localhost:8080/admin/rooms/{currentRoom.RoomId}", content);
+                var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/rooms/{currentRoom.RoomId}", content);
                 Console.WriteLine(response.StatusCode);
                 if (response.IsSuccessStatusCode)
                 {

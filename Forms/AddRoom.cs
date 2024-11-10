@@ -42,7 +42,7 @@ namespace EquipmentManagementWinform.Forms
                 string json = JsonConvert.SerializeObject(room);
                 Console.WriteLine(json);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"http://localhost:8080/admin/rooms", content);
+                var response = await client.PostAsync($"{ConfigManager.BaseUrl}/admin/rooms", content);
                 Console.WriteLine(response.StatusCode);
                 if (response.IsSuccessStatusCode)
                 {

@@ -35,7 +35,7 @@ namespace EquipmentManagementWinform
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            OpenChildForm(new Home());
         }
 
         // Structs
@@ -124,6 +124,7 @@ namespace EquipmentManagementWinform
             iconCurrentChildForm.IconChar = IconChar.Home;
             iconCurrentChildForm.IconColor = Color.MediumPurple;
             labelTitleChildForm.Text = "Home";
+            OpenChildForm(new Home());
         }
 
         // Drag form

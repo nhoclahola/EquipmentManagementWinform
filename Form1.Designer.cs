@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.roomRequestButton = new FontAwesome.Sharp.IconButton();
             this.requestButton = new FontAwesome.Sharp.IconButton();
             this.equipButton = new FontAwesome.Sharp.IconButton();
             this.roomButton = new FontAwesome.Sharp.IconButton();
             this.userButton = new FontAwesome.Sharp.IconButton();
-            this.roomRequestButton = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.homeButton = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
@@ -62,6 +62,29 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(220, 547);
             this.panelMenu.TabIndex = 0;
+            // 
+            // roomRequestButton
+            // 
+            this.roomRequestButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.roomRequestButton.FlatAppearance.BorderSize = 0;
+            this.roomRequestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roomRequestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomRequestButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.roomRequestButton.IconChar = FontAwesome.Sharp.IconChar.AlignRight;
+            this.roomRequestButton.IconColor = System.Drawing.Color.Gainsboro;
+            this.roomRequestButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.roomRequestButton.IconSize = 32;
+            this.roomRequestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.roomRequestButton.Location = new System.Drawing.Point(0, 380);
+            this.roomRequestButton.Name = "roomRequestButton";
+            this.roomRequestButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.roomRequestButton.Size = new System.Drawing.Size(220, 60);
+            this.roomRequestButton.TabIndex = 2;
+            this.roomRequestButton.Text = "Phiếu đăng ký phòng";
+            this.roomRequestButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.roomRequestButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.roomRequestButton.UseVisualStyleBackColor = true;
+            this.roomRequestButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // requestButton
             // 
@@ -155,29 +178,6 @@
             this.userButton.UseVisualStyleBackColor = true;
             this.userButton.Click += new System.EventHandler(this.userButton_Click);
             // 
-            // roomRequestButton
-            // 
-            this.roomRequestButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.roomRequestButton.FlatAppearance.BorderSize = 0;
-            this.roomRequestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.roomRequestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roomRequestButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.roomRequestButton.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.roomRequestButton.IconColor = System.Drawing.Color.Gainsboro;
-            this.roomRequestButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.roomRequestButton.IconSize = 32;
-            this.roomRequestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.roomRequestButton.Location = new System.Drawing.Point(0, 380);
-            this.roomRequestButton.Name = "roomRequestButton";
-            this.roomRequestButton.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.roomRequestButton.Size = new System.Drawing.Size(220, 60);
-            this.roomRequestButton.TabIndex = 2;
-            this.roomRequestButton.Text = "Tìm kiếm";
-            this.roomRequestButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.roomRequestButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.roomRequestButton.UseVisualStyleBackColor = true;
-            this.roomRequestButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
             // panelLogo
             // 
             this.panelLogo.Controls.Add(this.homeButton);
@@ -189,6 +189,7 @@
             // 
             // homeButton
             // 
+            this.homeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.homeButton.Image = global::EquipmentManagementWinform.Properties.Resources.Logo_Trường_Đại_Học_Sư_Phạm_Kỹ_Thuật_TP_Hồ_Chí_Minh;
             this.homeButton.Location = new System.Drawing.Point(28, 23);
             this.homeButton.Name = "homeButton";
@@ -217,9 +218,9 @@
             this.labelTitleChildForm.ForeColor = System.Drawing.Color.Gainsboro;
             this.labelTitleChildForm.Location = new System.Drawing.Point(60, 30);
             this.labelTitleChildForm.Name = "labelTitleChildForm";
-            this.labelTitleChildForm.Size = new System.Drawing.Size(68, 25);
+            this.labelTitleChildForm.Size = new System.Drawing.Size(109, 25);
             this.labelTitleChildForm.TabIndex = 1;
-            this.labelTitleChildForm.Text = "Home";
+            this.labelTitleChildForm.Text = "Trang chủ";
             // 
             // iconCurrentChildForm
             // 
@@ -263,7 +264,7 @@
             this.Controls.Add(this.panelMenu);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Ứng dụng quản lý phòng học và thiết bị";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);

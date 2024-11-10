@@ -62,7 +62,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = "http://localhost:8080/admin/rooms/count";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -79,7 +79,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/rooms?page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -97,7 +97,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}/equipments";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -115,7 +115,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments/{equipmentId}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -133,7 +133,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/rooms/{roomId}/equipments/{equipmentId}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/rooms/{roomId}/equipments/{equipmentId}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -225,7 +225,7 @@ namespace EquipmentManagementWinform.Forms
                     textBoxRoomName.Text = roomEquipment.RoomName;
                     textBoxQuantity.Text = roomEquipment.Quantity.ToString();
                     textBoxRemainQuantity.Text = roomEquipment.RemainQuantity.ToString();
-                    buttonUpdate.Visible = true;
+                    //buttonUpdate.Visible = true;
                     buttonAdd.Visible = false;
                     buttonDelete.Visible = true;
                 }
@@ -314,7 +314,7 @@ namespace EquipmentManagementWinform.Forms
             {
                 long quantity = long.Parse(textBoxQuantity.Text);
                 var content = new StringContent("", Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"http://localhost:8080/admin/rooms/{this.roomId}/add/{this.equipmentId}?quantity={quantity}", content);
+                var response = await client.PostAsync($"{ConfigManager.BaseUrl}/admin/rooms/{this.roomId}/add/{this.equipmentId}?quantity={quantity}", content);
                 Console.WriteLine(response.StatusCode);
                 if (response.IsSuccessStatusCode)
                 {
@@ -338,7 +338,7 @@ namespace EquipmentManagementWinform.Forms
             {
                 long quantity = long.Parse(textBoxQuantity.Text);
                 var content = new StringContent("", Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"http://localhost:8080/admin/rooms/{this.roomId}/edit/{this.equipmentId}?quantity={quantity}", content);
+                var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/rooms/{this.roomId}/edit/{this.equipmentId}?quantity={quantity}", content);
                 Console.WriteLine(response.StatusCode);
                 if (response.IsSuccessStatusCode)
                 {
@@ -364,7 +364,7 @@ namespace EquipmentManagementWinform.Forms
                 DialogResult dialogResult = MessageBox.Show($"Bạn có chắc chắn muốn xoá thiết bị với ID: {equipmentId}? khỏi phòng {this.roomName}", "Xoá thiết bị khỏi phòng", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var response = await client.DeleteAsync($"http://localhost:8080/admin/rooms/{this.roomId}/delete/{this.equipmentId}?quantity={quantity}");
+                    var response = await client.DeleteAsync($"{ConfigManager.BaseUrl}/admin/rooms/{this.roomId}/delete/{this.equipmentId}?quantity={quantity}");
                     Console.WriteLine(response.StatusCode);
                     if (response.IsSuccessStatusCode)
                     {

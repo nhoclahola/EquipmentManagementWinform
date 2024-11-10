@@ -24,7 +24,7 @@ namespace EquipmentManagementWinform.Forms
             _equipmentManagementForm = equipmentManagementForm;
         }
 
-        private async Task<bool> CreateEquipmentAsync(string url, string equipmentName, string imagePath)
+        private async Task<bool> CreateEquipmentAsync(string url, string equipmentName, string brandName, string description, string imagePath)
         {
             using (HttpClient client = new HttpClient())
             using (MultipartFormDataContent form = new MultipartFormDataContent())
@@ -33,6 +33,8 @@ namespace EquipmentManagementWinform.Forms
                 {
                     // Thêm equipmentName vào form-data
                     form.Add(new StringContent(equipmentName), "equipmentName");
+                    form.Add(new StringContent(brandName), "brandName");
+                    form.Add(new StringContent(description), "description");
 
                     // Thêm image vào form-data (file ảnh)
                     if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
@@ -83,8 +85,10 @@ namespace EquipmentManagementWinform.Forms
 
         private async void buttonAdd_ClickAsync(object sender, EventArgs e)
         {
-            string apiUrl = "http://localhost:8080/admin/equipments";
+            string apiUrl = $"{ConfigManager.BaseUrl}/admin/equipments";
             string equipmentName = textBoxEquipmentName.Text;
+            string brandName = textBoxBrandName.Text;
+            string description = textBoxDescription.Text;
 
             if (string.IsNullOrEmpty(equipmentName))
             {
@@ -92,12 +96,12 @@ namespace EquipmentManagementWinform.Forms
                 return;
             }
 
-            bool isSuccess = await CreateEquipmentAsync(apiUrl, equipmentName, selectedImagePath);
+            bool isSuccess = await CreateEquipmentAsync(apiUrl, equipmentName, brandName, description, selectedImagePath);
             if (isSuccess)
             {
                 // Xử lý sau khi tạo thành công (nếu cần)
-                long userCount = await _equipmentManagementForm.FetchEquipmentCountAsync();
-                long totalPageNumber = (userCount - 1) / 10 + 1;
+                long equipmentCount = await _equipmentManagementForm.FetchEquipmentCountAsync();
+                long totalPageNumber = (equipmentCount - 1) / 10 + 1;
                 // Trang mới nhất
                 _equipmentManagementForm.LoadDataIntoGridView(totalPageNumber);
                 _equipmentManagementForm.labelPageNumber.Text = totalPageNumber.ToString();

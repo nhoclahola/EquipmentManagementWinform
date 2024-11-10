@@ -95,7 +95,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = "http://localhost:8080/admin/room-borrow-request/count";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/room-borrow-request/count";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -111,7 +111,7 @@ namespace EquipmentManagementWinform.Forms
             using (HttpClient client = new HttpClient())
             {
                 // Thay endpoint API của bạn ở đây
-                string apiUrl = $"http://localhost:8080/admin/room-borrow-request?page={pageNumber}";
+                string apiUrl = $"{ConfigManager.BaseUrl}/admin/room-borrow-request?page={pageNumber}";
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
@@ -142,12 +142,12 @@ namespace EquipmentManagementWinform.Forms
                 dataGridViewBorrowRequest.DataSource = borrowRequests;
 
                 // Tạo cột "Hành động" với nút "Xoá"
-                DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
-                deleteColumn.Name = "Delete";
-                deleteColumn.HeaderText = "Xoá";
-                deleteColumn.Text = "Xoá";
-                deleteColumn.UseColumnTextForButtonValue = true;
-                dataGridViewBorrowRequest.Columns.Add(deleteColumn);
+                //DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
+                //deleteColumn.Name = "Delete";
+                //deleteColumn.HeaderText = "Xoá";
+                //deleteColumn.Text = "Xoá";
+                //deleteColumn.UseColumnTextForButtonValue = true;
+                //dataGridViewBorrowRequest.Columns.Add(deleteColumn);
 
                 // Đổi tên các cột trong DataGridView
                 dataGridViewBorrowRequest.Columns["Id"].HeaderText = "ID";
@@ -347,7 +347,7 @@ namespace EquipmentManagementWinform.Forms
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/reject", content);
+                        var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/room-borrow-request/{currentBorrowRequest.Id}/reject", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
@@ -374,7 +374,7 @@ namespace EquipmentManagementWinform.Forms
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/approve", content);
+                        var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/room-borrow-request/{currentBorrowRequest.Id}/approve", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
@@ -401,7 +401,7 @@ namespace EquipmentManagementWinform.Forms
                     using (var client = new HttpClient())
                     {
                         var content = new StringContent("", Encoding.UTF8, "application/json");
-                        var response = await client.PutAsync($"http://localhost:8080/admin/room-borrow-request/{currentBorrowRequest.Id}/returned", content);
+                        var response = await client.PutAsync($"{ConfigManager.BaseUrl}/admin/room-borrow-request/{currentBorrowRequest.Id}/returned", content);
                         Console.WriteLine(response.StatusCode);
                         if (response.IsSuccessStatusCode)
                         {
